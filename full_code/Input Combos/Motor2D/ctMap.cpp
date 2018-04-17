@@ -45,6 +45,11 @@ bool ctMap::Start()
 {
 	bool ret = true;
 
+	fx_1 = App->audio->LoadFx("audio/fx/fx_1.wav");
+	App->entities->SpawnEntity(10, 10, PLAYER);
+
+	if(!App->audio->PlayMusic("audio/music/ken.ogg",-1))
+		LOG("Error playing music in ctMap Start");
 
 
 	return ret;
@@ -60,8 +65,48 @@ bool ctMap::PreUpdate()
 bool ctMap::Update(float dt)
 {
 
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+		App->audio->PlayFx(fx_1);
 	
+	}
 
+
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+		//Mix_SetPosition(1, sound_angle, sound_distance);
+		//Mix_SetDistance(1, fx_distance);
+		if (sound_angle <= 20)
+			sound_angle = 255;
+		else
+			sound_angle = 0;
+		LOG("ANGLE:%i", sound_angle);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+		//Play3DSound("audio/fx/fx_1.wav");
+		uint aux = right_ear;
+		right_ear = left_ear;
+		left_ear = aux;
+		sound_angle += 180;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
+		if (sound_distance <= 20)
+			sound_distance = 225;
+		else
+			sound_distance = 1;
+		
+	}
+
+
+
+	//if (!Mix_SetPanning(2, left_ear, right_ear))
+		//LOG("Mix_SetPanning: %s\n", Mix_GetError());
+	//Mix_SetPanning(0, left_ear, right_ear);
+	//Mix_SetPanning(1, left_ear, right_ear);
+
+	Mix_SetPosition(0, sound_angle, sound_distance);
+	Mix_SetPosition(1, sound_angle, sound_distance);
+
+	//if (!Mix_SetPosition(2, 135, 100)) 
+	//	printf("Mix_SetPosition: %s\n", Mix_GetError());
 
 	return true;
 }
@@ -110,3 +155,10 @@ void ctMap::LoadRect(pugi::xml_node rect_node, SDL_Rect* rect)
 }
 
 
+void ctMap::Play3DSound(const char* id) {
+
+	Mix_Chunk* chunk = Mix_LoadWAV(id);
+	Mix_SetPosition(2, sound_angle, sound_distance);
+	Mix_PlayChannel(-1, chunk, 0);
+
+}

@@ -67,7 +67,7 @@ bool ctAudio::Awake(pugi::xml_node& config)
 	}
 
 	//Initialize SDL_mixer
-	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 2048) < 0)
 	{
 		LOG("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
 		active = false;
@@ -86,6 +86,7 @@ bool ctAudio::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) {
 		Mix_VolumeMusic(Mix_VolumeMusic(-1) + 10);
+		Mix_Volume(-1, Mix_Volume(-1, -1) + 10);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN) {
@@ -93,6 +94,11 @@ bool ctAudio::Update(float dt)
 			Mix_VolumeMusic(0);
 		else
 			Mix_VolumeMusic(Mix_VolumeMusic(-1) - 10);
+
+		if (Mix_Volume(-1, -1) < 10)
+			Mix_Volume(-1, 0);
+		else
+			Mix_Volume(-1, Mix_Volume(-1, -1) - 10);
 	}
 
 	return true;
@@ -118,7 +124,7 @@ bool ctAudio::CleanUp()
 }
 
 // Play a music file
-bool ctAudio::PlayMusic(const char* path, float fade_time)
+bool ctAudio::PlayMusic(const char* path, int loops, float fade_time)
 {
 	bool ret = true;
 
@@ -151,7 +157,7 @@ bool ctAudio::PlayMusic(const char* path, float fade_time)
 	{
 		if (fade_time > 0.0f)
 		{
-			if (Mix_FadeInMusic(music, -1, (int)(fade_time * 1000.0f)) < 0)
+			if (Mix_FadeInMusic(music, loops, (int)(fade_time * 1000.0f)) < 0)
 			{
 				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
 				ret = false;
@@ -159,7 +165,7 @@ bool ctAudio::PlayMusic(const char* path, float fade_time)
 		}
 		else
 		{
-			if (Mix_PlayMusic(music, -1) < 0)
+			if (Mix_PlayMusic(music, loops) < 0)
 			{
 				LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
 				ret = false;

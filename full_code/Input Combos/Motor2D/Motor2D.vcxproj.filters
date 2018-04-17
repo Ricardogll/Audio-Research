@@ -116,9 +116,6 @@
     <ClInclude Include="ctLog.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="ctAnimation.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="ctModule.h">
       <Filter>Core</Filter>
     </ClInclude>

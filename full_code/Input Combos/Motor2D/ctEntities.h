@@ -2,7 +2,7 @@
 #define __ctEntities_H__
 
 #include "ctModule.h"
-#include "ctAnimation.h"
+
 #include <vector>
 #include <string>
 

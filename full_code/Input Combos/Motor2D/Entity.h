@@ -2,7 +2,6 @@
 #define __ENTITY_H__
 
 #include "ctPoint.h"
-#include "ctAnimation.h"
 #include "ctEntities.h"
 
 struct SDL_Texture;
@@ -10,7 +9,7 @@ struct SDL_Texture;
 class Entity
 {
 protected:
-	ctAnimation* animation = nullptr;
+	
 	bool key_entities_speed = false;
 
 public:

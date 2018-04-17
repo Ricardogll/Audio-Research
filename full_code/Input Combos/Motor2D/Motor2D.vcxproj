@@ -35,7 +35,6 @@
     <ClCompile Include="UILabel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ctAnimation.h" />
     <ClInclude Include="ctApp.h" />
     <ClInclude Include="ctAudio.h" />
     <ClInclude Include="ctDefs.h" />
