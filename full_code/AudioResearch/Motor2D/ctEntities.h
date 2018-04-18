@@ -11,13 +11,14 @@ enum ComboType;
 enum EntityType
 {
 	PLAYER,
-	OIL_DRUM,
+	ENEMY,
 
 	NO_TYPE
 };
 
 class Entity;
 class Player;
+class Enemy;
 
 struct SDL_Texture;
 
@@ -46,9 +47,9 @@ private:
 
 	std::vector<Entity*> entities;
 
-	SDL_Texture* entity_sprites = nullptr;
 
-	std::string spritesheetName;
+
+	
 
 };
 

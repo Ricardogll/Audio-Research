@@ -4,6 +4,7 @@
 
 #include "ctInput.h"
 #include "ctApp.h"
+#include <math.h>
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
@@ -243,6 +244,38 @@ bool ctAudio::UnLoadFx(uint id)
 		ret = true;
 		//last_fx--;
 	}
+
+	return ret;
+}
+
+uint ctAudio::GetAngle(iPoint pos_player, iPoint pos_enemy) {
+
+	//We make player the center of a new frame. So its position on this frame will be (0,0), and calculate the new enemy position accordint to this frame.
+	iPoint vec_p = { 0,1 };//We want to get the angle that is created with the Y axis, so we will caculate the angle between axis y (0,1) and 
+	iPoint vec_e=pos_enemy-pos_player;// this new vector of enemy-player positions.
+
+	double dot = (vec_p.x*vec_e.x) + (vec_p.y*vec_e.y);  //Dot product
+	double det = (vec_p.x*vec_e.y) - (vec_p.y*vec_e.x);//Determinant
+	
+	float ret_f = (atan2(det, dot)) * RADS_TO_DEG;
+	ret_f += 180;
+	uint ret = static_cast<uint>(ret_f);
+	return ret;
+}
+
+
+uint ctAudio::GetDistance(iPoint pos_player, iPoint pos_enemy) {
+	uint ret = 0;
+	double x= sqrt(abs(pow((pos_enemy.x - pos_player.x), 2) + pow((pos_enemy.y - pos_player.y), 2)));
+
+	double x_change_scale = (255.0 / MAX_DISTANCE) * x;  //Set scale as you like changing MAX_DISTANCE
+
+	ret = static_cast<uint>(x_change_scale);
+	
+	if (ret > 255) 
+		ret = VOLUME_AT_MAX_DIST;
+	
+	
 
 	return ret;
 }

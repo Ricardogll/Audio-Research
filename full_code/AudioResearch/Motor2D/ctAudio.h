@@ -2,14 +2,18 @@
 #define __ctAUDIO_H__
 
 #include "ctModule.h"
+#include "ctPoint.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
 #define MAX_FX 200
-
+#define MAX_DISTANCE 500		 //Set it to the furthest you will be able to hear fx's
+#define VOLUME_AT_MAX_DIST 250   //Change as you like. Goes between 255 (volume 0) to 0 (maximum volume)
+#define RADS_TO_DEG 180 / 3.14
 struct _Mix_Music;
 struct Mix_Chunk;
+
 
 class ctAudio : public ctModule
 {
@@ -45,6 +49,8 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	uint GetAngle(iPoint pos_player, iPoint pos_enemy);
+	uint GetDistance(iPoint pos_player, iPoint pos_enemy);
 private:
 
 	_Mix_Music*			music = nullptr;

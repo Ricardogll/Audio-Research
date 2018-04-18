@@ -45,8 +45,10 @@ bool ctMap::Start()
 {
 	bool ret = true;
 
-	fx_1 = App->audio->LoadFx("audio/fx/fx_1.wav");
-	App->entities->SpawnEntity(10, 10, PLAYER);
+	//fx_1 = App->audio->LoadFx("audio/fx/fx_1.wav");
+	App->entities->SpawnEntity(0, 0, PLAYER);
+
+	App->entities->SpawnEntity(400, 400, ENEMY);
 
 	if(!App->audio->PlayMusic("audio/music/ken.ogg",-1))
 		LOG("Error playing music in ctMap Start");
@@ -66,8 +68,8 @@ bool ctMap::Update(float dt)
 {
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
-		App->audio->PlayFx(fx_1);
-	
+		
+		
 	}
 
 
@@ -102,11 +104,11 @@ bool ctMap::Update(float dt)
 	//Mix_SetPanning(0, left_ear, right_ear);
 	//Mix_SetPanning(1, left_ear, right_ear);
 
-	Mix_SetPosition(0, sound_angle, sound_distance);
-	Mix_SetPosition(1, sound_angle, sound_distance);
+	
 
 	//if (!Mix_SetPosition(2, 135, 100)) 
 	//	printf("Mix_SetPosition: %s\n", Mix_GetError());
+
 
 	return true;
 }

@@ -12,8 +12,8 @@ class Player : public Entity
 public:
 
 
-	SDL_Rect player = { 0,0,0,0 };
-
+	//SDL_Rect player_rect = { 0,0,0,0 };
+	
 
 private:
 

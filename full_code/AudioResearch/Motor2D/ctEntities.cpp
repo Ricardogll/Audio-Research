@@ -7,7 +7,7 @@
 #include "ctWindow.h"
 #include "ctLog.h"
 #include "ctFadeToBlack.h"
-
+#include "Enemy.h"
 #include "Player.h"
 
 
@@ -20,7 +20,7 @@ ctEntities::ctEntities()
 ctEntities::~ctEntities()
 {
 	LOG("Unloading entities spritesheet");
-	App->tex->UnLoad(entity_sprites);
+	
 }
 
 bool ctEntities::Awake(pugi::xml_node& config)
@@ -28,7 +28,7 @@ bool ctEntities::Awake(pugi::xml_node& config)
 	LOG("Loading Entities from config file");
 	bool ret = true;
 
-	spritesheetName = config.child("spritesheetSource").attribute("name").as_string();
+	
 	
 	return ret;
 }
@@ -37,12 +37,7 @@ bool ctEntities::Start()
 {
 	bool ret = true;
 
-	entity_sprites = App->tex->Load(spritesheetName.data());
 
-	if (entity_sprites == NULL) {
-		LOG("Error loading entities spritesheet!!");
-		ret = false;
-	}
 
 	if (!ret)
 		return false;
@@ -71,7 +66,7 @@ bool ctEntities::Update(float dt)
 		if (entities.at(i) != nullptr) entities[i]->Update(dt);
 
 	for (int i = 0; i < entities.capacity(); i++)
-		if (entities.at(i) != nullptr) entities[i]->Draw(entity_sprites);
+		if (entities.at(i) != nullptr) entities[i]->Draw();
 
 	return true;
 }
@@ -81,7 +76,7 @@ bool ctEntities::CleanUp()
 {
 	LOG("Freeing all enemies");
 
-	App->tex->UnLoad(entity_sprites);
+	
 
 
 
@@ -98,6 +93,12 @@ bool ctEntities::SpawnEntity(int x, int y, EntityType type)
 	case EntityType::PLAYER: {
 		Player* player = new Player(x, y, PLAYER);
 		entities.push_back(player);
+		ret = true;
+		break;
+	}
+	case EntityType::ENEMY: {
+		Enemy* enemy = new Enemy(x, y, ENEMY);
+		entities.push_back(enemy);
 		ret = true;
 		break;
 	}

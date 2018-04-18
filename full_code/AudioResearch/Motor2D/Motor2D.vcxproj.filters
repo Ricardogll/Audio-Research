@@ -93,6 +93,9 @@
     <ClCompile Include="ctMap.cpp">
       <Filter>Core\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Core\Modules\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ctApp.h">
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="ctMap.h">
       <Filter>Core\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Core\Modules\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
