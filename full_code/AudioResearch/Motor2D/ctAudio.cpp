@@ -193,7 +193,7 @@ unsigned int ctAudio::LoadFx(const char* path)
 
 	uint ret = 0;
 	Mix_Chunk* chunk = Mix_LoadWAV(path);
-
+	
 	if (chunk == nullptr)
 	{
 		LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
@@ -278,4 +278,26 @@ uint ctAudio::GetDistance(iPoint pos_player, iPoint pos_enemy) {
 	
 
 	return ret;
+}
+
+
+void ctAudio::PauseMusic() //https://gist.github.com/zachelko/362391
+{
+	if (active)
+	{
+		// If music is playing, handle the pause request
+		if (Mix_PlayingMusic() == 1)
+		{
+			if (Mix_PausedMusic() == 1)
+			{
+				// If we receive a pause request and the music is already paused, resume it.
+				Mix_ResumeMusic();
+			}
+			else
+			{
+				// Otherwise, pause the music
+				Mix_PauseMusic();
+			}
+		}
+	}
 }

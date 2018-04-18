@@ -36,7 +36,7 @@ public:
 	// Play a music file
 	bool PlayMusic(const char* path, int loops=-1, float fade_time = DEFAULT_MUSIC_FADE_TIME);
 	bool StopMusic();
-
+	void PauseMusic();
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path);
 

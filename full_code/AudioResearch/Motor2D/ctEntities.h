@@ -43,7 +43,7 @@ public:
 
 	bool SpawnEntity(int x, int y, EntityType type);
 
-private:
+public:
 
 	std::vector<Entity*> entities;
 

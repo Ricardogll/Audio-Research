@@ -84,10 +84,7 @@ bool ctMap::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
 		//Play3DSound("audio/fx/fx_1.wav");
-		uint aux = right_ear;
-		right_ear = left_ear;
-		left_ear = aux;
-		sound_angle += 180;
+		App->audio->PauseMusic();
 	}
 	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 		if (sound_distance <= 20)
