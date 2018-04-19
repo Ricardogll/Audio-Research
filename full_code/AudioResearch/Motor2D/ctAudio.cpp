@@ -10,10 +10,16 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
+bool song_finished = false;
+void SongFinished() {
+	song_finished = true;
+}
+
 ctAudio::ctAudio() : ctModule()
 {
 	music = NULL;
 	name = "audio";
+	currentPlaylist = CASUAL;
 }
 
 // Destructor
@@ -79,6 +85,9 @@ bool ctAudio::Awake(pugi::xml_node& config)
 	SetChannelsAngles();
 	Mix_VolumeMusic(20);
 
+
+	Mix_HookMusicFinished(SongFinished);
+
 	return ret;
 }
 
@@ -103,6 +112,30 @@ bool ctAudio::Update(float dt)
 		else
 			Mix_Volume(-1, Mix_Volume(-1, -1) - 10);
 	}
+	
+
+	if (song_finished) {
+		song_finished = false;
+		Mix_Music* temp;
+
+		switch (currentPlaylist) {
+		case CASUAL:
+			temp = playlist_casual.front();
+			playlist_casual.pop_front();
+			playlist_casual.push_back(temp);
+			break;
+		case BATTLE:
+			temp = playlist_battle.front();
+			playlist_battle.pop_front();
+			playlist_battle.push_back(temp);
+			break;
+		default:
+			break;
+			
+		}
+		temp = NULL;
+		PlayMusicPlaylist(currentPlaylist);
+	}
 
 	return true;
 }
@@ -119,7 +152,8 @@ bool ctAudio::CleanUp()
 	{
 		Mix_FreeMusic(music);
 	}
-
+	playlist_casual.clear();
+	playlist_battle.clear();
 	Mix_CloseAudio();
 	Mix_Quit();
 	SDL_QuitSubSystem(SDL_INIT_AUDIO);
@@ -341,3 +375,56 @@ void ctAudio::SetChannelsAngles()
 
 }
 
+bool ctAudio::AddMusicToList(const char* path, PlaylistType pl_type) {
+	
+	Mix_Music* song = Mix_LoadMUS(path);
+
+	if (!song) {
+		LOG("Cannot add music %s to playlist. Mix_GetError(): %s", path, Mix_GetError());
+		return false;
+	}
+
+	switch (pl_type) {
+	case CASUAL:
+		playlist_casual.push_back(song);
+		break;
+	case BATTLE:
+		playlist_battle.push_back(song);
+		break;
+	default:
+
+		break;
+	}
+
+	song = NULL;
+	return true;
+}
+
+
+
+bool ctAudio::PlayMusicPlaylist(PlaylistType pl_type) {
+
+
+	switch (pl_type) {
+	case CASUAL:
+		currentPlaylist = CASUAL;
+		if (Mix_PlayMusic(playlist_casual.front(), 1) == -1) {
+			LOG("Cannot play music. Mix_GetError(): %s", Mix_GetError());
+			return false;
+		}
+		
+		break;
+	case BATTLE:
+		currentPlaylist = BATTLE;
+		if (Mix_PlayMusic(playlist_battle.front(), 1) == -1) {
+			LOG("Cannot play music. Mix_GetError(): %s", Mix_GetError());
+			return false;
+		}
+		break;
+	default:
+		break;
+
+		return true;
+	}
+
+}

@@ -79,20 +79,20 @@ bool ctRender::Update(float dt)
 
 	App->win->GetWindowSize(winWidth, winHeight);
 
-	/*
-	int speed = 3;
+	
+	//int speed = 10;
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		camera.y += speed;
+	//if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	//	camera.y += speed;
 
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		camera.y -= speed;
+	//if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	//	camera.y -= speed;
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		camera.x += speed;
+	//if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	//	camera.x += speed;
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		camera.x -= speed;*/
+	//if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	//	camera.x -= speed;
 
 	//LOG("Camera pos x: %i pos y: %i", camera.x, camera.y);
 

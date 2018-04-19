@@ -45,15 +45,25 @@ bool ctMap::Start()
 {
 	bool ret = true;
 
-	//fx_1 = App->audio->LoadFx("audio/fx/fx_1.wav");
+	
+	
 	App->entities->SpawnEntity(0, 0, PLAYER);
 
 	App->entities->SpawnEntity(100, 400, ENEMY);
 
 	App->entities->SpawnEntity(800, 500, ENEMY);
 
-	if(!App->audio->PlayMusic("audio/music/ken.ogg",-1))
-		LOG("Error playing music in ctMap Start");
+	
+	App->audio->AddMusicToList("audio/music/Sword Unsheathed.ogg", CASUAL);
+	App->audio->AddMusicToList("audio/music/TES V Skyrim Soundtrack - Awake.ogg", CASUAL);
+
+	App->audio->AddMusicToList("audio/music/TES V Skyrim Soundtrack - Combat 1.ogg", BATTLE);
+	App->audio->AddMusicToList("audio/music/TES V Skyrim Soundtrack - Combat 2.ogg", BATTLE);
+
+
+	App->audio->PlayMusicPlaylist(CASUAL);
+	//if(!App->audio->PlayMusic("audio/music/Sword Unsheathed.ogg",1))
+	//	LOG("Error playing music in ctMap Start");
 
 
 	return ret;
@@ -68,6 +78,7 @@ bool ctMap::PreUpdate()
 // Called each loop iteration
 bool ctMap::Update(float dt)
 {
+	App->render->DrawQuad({ 600,400,800,400 }, 40, 240, 220, 240, true, false);
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
 		

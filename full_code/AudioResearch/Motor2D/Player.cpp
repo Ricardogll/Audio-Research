@@ -36,14 +36,22 @@ void Player::Update(float dt)
 
 
 	//MOVE
-	if (App->input->GetKey(SDL_SCANCODE_DOWN)==KEY_REPEAT && rect.y<700)
-		rect.y+=10;
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT && rect.y>0)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT && rect.y < 700) {
+		rect.y += 10;
+		App->render->camera.y += 10;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT && rect.y > 0) {
 		rect.y -= 10;
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && rect.x<970)
+		App->render->camera.y -= 10;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && rect.x < 970) {
 		rect.x += 10;
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && rect.x>0)
+		App->render->camera.x += 10;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && rect.x > 0) {
 		rect.x -= 10;
+		App->render->camera.x -= 10;
+	}
 
 	
 	position.x = rect.x;

@@ -4,7 +4,7 @@
 #include "ctModule.h"
 #include "ctPoint.h"
 #include "SDL_mixer\include\SDL_mixer.h"
-
+#include <list>
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
 #define MAX_FX 200
@@ -13,6 +13,15 @@
 #define RADS_TO_DEG 180 / 3.14
 struct _Mix_Music;
 struct Mix_Chunk;
+
+enum PlaylistType
+{
+	CASUAL = 0,
+	BATTLE,
+
+
+	NONE=-1,
+};
 
 
 class ctAudio : public ctModule
@@ -53,14 +62,24 @@ public:
 	uint GetDistance(iPoint pos_player, iPoint pos_enemy);
 	void SetChannelsAngles();
 	
+	bool AddMusicToList(const char* path, PlaylistType pl_type);
+	bool PlayMusicPlaylist(PlaylistType pl_type);
+
+private:
 
 	
-private:
 
 	_Mix_Music*			music = nullptr;
 	Mix_Chunk*			fx[MAX_FX];
 
 	uint				last_fx = 1;
+	std::list<Mix_Music*> playlist_casual;
+	std::list<Mix_Music*> playlist_battle;
+	
+
+public:
+
+	enum PlaylistType currentPlaylist = NONE;
 };
 
 
