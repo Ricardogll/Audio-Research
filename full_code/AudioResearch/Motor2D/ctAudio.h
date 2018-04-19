@@ -42,7 +42,7 @@ public:
 
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
-
+	bool PlayFxOnChannel(uint fx, uint channel,  uint distance=1, int repeat = 0);
 	// UnLoad WAV
 	bool UnLoadFx(uint id);
 
@@ -51,6 +51,10 @@ public:
 
 	uint GetAngle(iPoint pos_player, iPoint pos_enemy);
 	uint GetDistance(iPoint pos_player, iPoint pos_enemy);
+	void SetChannelsAngles();
+	
+
+	
 private:
 
 	_Mix_Music*			music = nullptr;
@@ -58,5 +62,6 @@ private:
 
 	uint				last_fx = 1;
 };
+
 
 #endif // __ctAUDIO_H__

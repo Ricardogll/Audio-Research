@@ -74,7 +74,9 @@ bool ctAudio::Awake(pugi::xml_node& config)
 		active = false;
 		ret = true;
 	}
-
+	//Mix_AllocateChannels(24);
+	Mix_AllocateChannels(360);
+	SetChannelsAngles();
 	Mix_VolumeMusic(20);
 
 	return ret;
@@ -228,6 +230,30 @@ bool ctAudio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+bool ctAudio::PlayFxOnChannel(uint id, uint channel, uint distance, int repeat)
+{
+
+	if (!active)
+		return false;
+
+	bool ret = false;
+
+	if (fx[id] != nullptr)
+	{
+		
+		while (Mix_Playing(channel) == 1) {//if channel is playing look for next one
+			channel++;
+			if (channel >= 360)
+				channel = 0;
+		}
+		
+		Mix_SetDistance(channel, distance);
+		Mix_PlayChannel(channel, fx[id], repeat);
+		ret = true;
+	}
+
+	return ret;
+}
 
 // UnLoad WAV
 bool ctAudio::UnLoadFx(uint id)
@@ -301,3 +327,17 @@ void ctAudio::PauseMusic() //https://gist.github.com/zachelko/362391
 		}
 	}
 }
+
+//Set 2 channels for every 30 degrees
+void ctAudio::SetChannelsAngles() 
+{
+
+	uint angle = 0;
+
+	
+	for (int i = 0; i <= 360; i++) {
+		Mix_SetPosition(i, i, 1);
+	}
+
+}
+

@@ -48,7 +48,9 @@ bool ctMap::Start()
 	//fx_1 = App->audio->LoadFx("audio/fx/fx_1.wav");
 	App->entities->SpawnEntity(0, 0, PLAYER);
 
-	App->entities->SpawnEntity(400, 400, ENEMY);
+	App->entities->SpawnEntity(100, 400, ENEMY);
+
+	App->entities->SpawnEntity(800, 500, ENEMY);
 
 	if(!App->audio->PlayMusic("audio/music/ken.ogg",-1))
 		LOG("Error playing music in ctMap Start");

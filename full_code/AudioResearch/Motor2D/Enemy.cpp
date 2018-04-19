@@ -37,17 +37,37 @@ void Enemy::Update(float dt)
 	
 
 	//MOVE
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
-		Mix_SetPosition(0, App->audio->GetAngle(App->entities->GetPlayer()->position, this->position), App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && position.x<200) {
+		/*Mix_SetPosition(0, App->audio->GetAngle(App->entities->GetPlayer()->position, this->position), App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));
 		Mix_SetPosition(1, App->audio->GetAngle(App->entities->GetPlayer()->position, this->position), App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));
 
 		App->audio->PlayFx(fx_1);
 		LOG("Player:%i,%i. Enemy:%i,%i. Angle=%i, Dist=%i", App->entities->GetPlayer()->position.x, App->entities->GetPlayer()->position.y, this->position.x, this->position.y,
 															App->audio->GetAngle(App->entities->GetPlayer()->position, this->position),
-															App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));
+															App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));*/
+		App->audio->PlayFxOnChannel(fx_1, App->audio->GetAngle(App->entities->GetPlayer()->position, this->position), App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));
+
 	}
 
-	position.x = rect.x;
-	position.y = rect.y;
+
+
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && position.x>200) {
+	/*	Mix_SetPosition(0, App->audio->GetAngle(App->entities->GetPlayer()->position, this->position), App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));
+		Mix_SetPosition(1, App->audio->GetAngle(App->entities->GetPlayer()->position, this->position), App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));
+
+		App->audio->PlayFx(fx_2);
+		LOG("Player:%i,%i. Enemy:%i,%i. Angle=%i, Dist=%i", App->entities->GetPlayer()->position.x, App->entities->GetPlayer()->position.y, this->position.x, this->position.y,
+			App->audio->GetAngle(App->entities->GetPlayer()->position, this->position),
+			App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));
+	*/
+
+		App->audio->PlayFxOnChannel(fx_2, App->audio->GetAngle(App->entities->GetPlayer()->position, this->position), App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));
+
+	}
+
+
+
+	//position.x = rect.x;
+	//position.y = rect.y;
 }
 
