@@ -17,7 +17,7 @@ Download the latest release. There you can find a the "full_code" and the "exerc
 
 * 2 To play sound effect coming from the right red square.
 
-* + and - on keypad to change volume of music and sound effects.
+* Use + and - on keypad to change volume of music and sound effects.
 
 ## Tools
 
