@@ -5,7 +5,7 @@ In this guide I will show one of many ways you can apply this to your projects.
 
 ## How yo follow?
 
-Download the latest release. There you can find a the "full_code" and the "exercices" folder. Open the code on exercices and follow along here (WEBWEBWEB). Feel free to check the .exe in full code to see how it should end.
+Download the latest release. There you can find a the "full_code" and the "exercices" folder. Open the code on exercices and follow along [HERE](https://ricardogll.github.io/Audio-Research/). Feel free to check the .exe in full code to see how it should end.
 
 ## Controls
 
