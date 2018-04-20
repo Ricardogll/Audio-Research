@@ -41,43 +41,47 @@ public:
 	// Called each loop iteration
 	bool Update(float dt);
 
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 	// Called before quitting
 	bool CleanUp();
 
+
+	//MUSIC
 	// Play a music file
 	bool PlayMusic(const char* path, int loops=-1, float fade_time = DEFAULT_MUSIC_FADE_TIME);
 	bool StopMusic();
-	void PauseMusic();
+	void PauseMusic(); //*
+
+	bool AddMusicToList(const char* path, PlaylistType pl_type);
+	bool PlayMusicPlaylist(PlaylistType pl_type, float fade_time = DEFAULT_MUSIC_FADE_TIME);
+
+
+
+	//FX
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path);
-
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
-	bool PlayFxOnChannel(uint fx, uint channel,  uint distance=1, int repeat = 0);
+	bool PlayFxOnChannel(uint fx, uint channel, uint distance = 1, int repeat = 0);//*
 	// UnLoad WAV
 	bool UnLoadFx(uint id);
-
-	bool Load(pugi::xml_node&);
-	bool Save(pugi::xml_node&) const;
 
 	uint GetAngle(iPoint pos_player, iPoint pos_enemy);
 	uint GetVolumeFromDistance(iPoint pos_player, iPoint pos_enemy);
 	void SetChannelsAngles();
-	
-	bool AddMusicToList(const char* path, PlaylistType pl_type);
-	bool PlayMusicPlaylist(PlaylistType pl_type, float fade_time = DEFAULT_MUSIC_FADE_TIME);
 
 private:
-
-	
 
 	_Mix_Music*			music = nullptr;
 	Mix_Chunk*			fx[MAX_FX];
 
 	uint				last_fx = 1;
+	uint volume = 50;
+
 	std::list<Mix_Music*> playlist_casual;
 	std::list<Mix_Music*> playlist_battle;
-	uint volume = 50;
 	
 public:
 	uint lastTime = 0u;

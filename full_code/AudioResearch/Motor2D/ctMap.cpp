@@ -7,8 +7,6 @@
 #include "ctRender.h"
 #include "ctWindow.h"
 #include "ctEntities.h"
-#include "ctInputCombo.h"
-#include "InputEvent.h"
 
 #include "ctMap.h"
 
@@ -89,10 +87,7 @@ bool ctMap::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
 		App->audio->PauseMusic();
 	}
-	if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN) {
-		
-		
-	}
+
 
 	if (player->position.x >= 600 && player->position.y >= 400 && App->audio->currentPlaylist==CASUAL)
 	{
