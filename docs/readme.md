@@ -7,4 +7,13 @@ In this guide I'll walk you through 2 different audio related problems we might 
 
 # Music Manager
 
-Let's start by taking a look at the audio module *ctAudio*.
+Firstly I'd like to recommend having the SDL_mixer [wiki](http://sdl.beuc.net/sdl.wiki/SDL_mixer) ready to look up any useful function we might use. Let's start by taking a look at the audio module *ctAudio*.
+For this part we'll mostly use and create functions under the MUSIC label. 
+
+## Basic Music Functions
+
+* This will allow us to start playing music giving the path to the file, the amount of times we want it to loop (-1 for infinite) and a fade in and fade out time in case we are already playing a song.
+
+* Here we'll just halt and free the music.
+
+* On the other hand, with this we'll be able to pause and unpause as we like. 
