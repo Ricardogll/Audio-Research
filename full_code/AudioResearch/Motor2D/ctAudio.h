@@ -6,11 +6,13 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #include <list>
 
-#define DEFAULT_MUSIC_FADE_TIME 2.0f
+#define DEFAULT_MUSIC_FADE_TIME 5.5f
 #define MAX_FX 200
 #define MAX_DISTANCE 500		 //Set it to the furthest you will be able to hear fx's
-#define VOLUME_AT_MAX_DIST 250   //Change as you like. Goes between 255 (volume 0) to 0 (maximum volume)
+#define VOLUME_AT_MAX_DIST 250   //Change as you like. Goes between 255 (volume 0) and 0 (maximum volume)
+#define NO_SOUND_DISTANCE 520	 //No sound will be heard from this distance on
 #define RADS_TO_DEG 180 / 3.14
+
 struct _Mix_Music;
 struct Mix_Chunk;
 
@@ -59,11 +61,11 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	uint GetAngle(iPoint pos_player, iPoint pos_enemy);
-	uint GetDistance(iPoint pos_player, iPoint pos_enemy);
+	uint GetVolumeFromDistance(iPoint pos_player, iPoint pos_enemy);
 	void SetChannelsAngles();
 	
 	bool AddMusicToList(const char* path, PlaylistType pl_type);
-	bool PlayMusicPlaylist(PlaylistType pl_type);
+	bool PlayMusicPlaylist(PlaylistType pl_type, float fade_time = DEFAULT_MUSIC_FADE_TIME);
 
 private:
 
@@ -75,11 +77,12 @@ private:
 	uint				last_fx = 1;
 	std::list<Mix_Music*> playlist_casual;
 	std::list<Mix_Music*> playlist_battle;
+	uint volume = 50;
 	
-
 public:
-
+	uint lastTime = 0u;
 	enum PlaylistType currentPlaylist = NONE;
+	
 };
 
 

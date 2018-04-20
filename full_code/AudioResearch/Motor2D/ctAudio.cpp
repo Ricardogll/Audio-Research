@@ -13,6 +13,13 @@
 bool song_finished = false;
 void SongFinished() {
 	song_finished = true;
+	/*uint currentTime=SDL_GetTicks();
+
+	if (currentTime >= App->audio->lastTime + DEFAULT_MUSIC_FADE_TIME * 1000)
+	{
+		song_finished = true;
+		App->audio->lastTime = currentTime;
+	}*/
 }
 
 ctAudio::ctAudio() : ctModule()
@@ -29,7 +36,7 @@ ctAudio::~ctAudio()
 bool ctAudio::Load(pugi::xml_node& save) {
 	bool ret = true;
 
-	Mix_VolumeMusic(save.child("volume").attribute("music").as_int(50));
+	Mix_VolumeMusic(save.child("volume").attribute("music").as_int(volume));
 
 	return ret;
 }
@@ -83,7 +90,7 @@ bool ctAudio::Awake(pugi::xml_node& config)
 	//Mix_AllocateChannels(24);
 	Mix_AllocateChannels(360);
 	SetChannelsAngles();
-	Mix_VolumeMusic(20);
+	Mix_VolumeMusic(volume);
 
 
 	Mix_HookMusicFinished(SongFinished);
@@ -99,6 +106,7 @@ bool ctAudio::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) {
 		Mix_VolumeMusic(Mix_VolumeMusic(-1) + 10);
 		Mix_Volume(-1, Mix_Volume(-1, -1) + 10);
+		volume=Mix_VolumeMusic(-1);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN) {
@@ -111,11 +119,14 @@ bool ctAudio::Update(float dt)
 			Mix_Volume(-1, 0);
 		else
 			Mix_Volume(-1, Mix_Volume(-1, -1) - 10);
+		volume = Mix_VolumeMusic(-1);
 	}
 	
 
 	if (song_finished) {
+		
 		song_finished = false;
+
 		Mix_Music* temp;
 
 		switch (currentPlaylist) {
@@ -272,20 +283,21 @@ bool ctAudio::PlayFxOnChannel(uint id, uint channel, uint distance, int repeat)
 
 	bool ret = false;
 
+	
+
 	if (fx[id] != nullptr)
 	{
-		
+
 		while (Mix_Playing(channel) == 1) {//if channel is playing look for next one
 			channel++;
 			if (channel >= 360)
 				channel = 0;
 		}
-		
-		Mix_SetDistance(channel, distance);
+
+		Mix_SetPosition(channel, channel, distance);
 		Mix_PlayChannel(channel, fx[id], repeat);
 		ret = true;
 	}
-
 	return ret;
 }
 
@@ -324,13 +336,17 @@ uint ctAudio::GetAngle(iPoint pos_player, iPoint pos_enemy) {
 }
 
 
-uint ctAudio::GetDistance(iPoint pos_player, iPoint pos_enemy) {
+uint ctAudio::GetVolumeFromDistance(iPoint pos_player, iPoint pos_enemy) {
 	uint ret = 0;
-	double x= sqrt(abs(pow((pos_enemy.x - pos_player.x), 2) + pow((pos_enemy.y - pos_player.y), 2)));
+	double dist_in_pixels= sqrt(abs(pow((pos_enemy.x - pos_player.x), 2) + pow((pos_enemy.y - pos_player.y), 2)));
 
-	double x_change_scale = (255.0 / MAX_DISTANCE) * x;  //Set scale as you like changing MAX_DISTANCE
+	if (dist_in_pixels >= NO_SOUND_DISTANCE) {
+		return 255;
+	}
 
-	ret = static_cast<uint>(x_change_scale);
+	double dist_change_scale = (255.0 / MAX_DISTANCE) * dist_in_pixels;  //Set scale as you like changing MAX_DISTANCE
+
+	ret = static_cast<uint>(dist_change_scale);
 	
 	if (ret > 255) 
 		ret = VOLUME_AT_MAX_DIST;
@@ -341,7 +357,7 @@ uint ctAudio::GetDistance(iPoint pos_player, iPoint pos_enemy) {
 }
 
 
-void ctAudio::PauseMusic() //https://gist.github.com/zachelko/362391
+void ctAudio::PauseMusic()
 {
 	if (active)
 	{
@@ -402,21 +418,31 @@ bool ctAudio::AddMusicToList(const char* path, PlaylistType pl_type) {
 
 
 
-bool ctAudio::PlayMusicPlaylist(PlaylistType pl_type) {
+bool ctAudio::PlayMusicPlaylist(PlaylistType pl_type, float fade_time) {
+
+	bool ret = true;
+
+	if (!active)
+		return false;
+
 
 
 	switch (pl_type) {
 	case CASUAL:
+		
+		music = playlist_casual.front();
 		currentPlaylist = CASUAL;
-		if (Mix_PlayMusic(playlist_casual.front(), 1) == -1) {
+		if (Mix_PlayMusic(music, 1) == -1) {
 			LOG("Cannot play music. Mix_GetError(): %s", Mix_GetError());
 			return false;
 		}
 		
 		break;
 	case BATTLE:
+		
+		music = playlist_battle.front();
 		currentPlaylist = BATTLE;
-		if (Mix_PlayMusic(playlist_battle.front(), 1) == -1) {
+		if (Mix_PlayMusic(music, 1) == -1) {
 			LOG("Cannot play music. Mix_GetError(): %s", Mix_GetError());
 			return false;
 		}
@@ -424,7 +450,11 @@ bool ctAudio::PlayMusicPlaylist(PlaylistType pl_type) {
 	default:
 		break;
 
-		return true;
 	}
-
+	
+	return ret;
 }
+
+
+
+

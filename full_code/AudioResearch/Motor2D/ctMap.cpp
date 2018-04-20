@@ -49,12 +49,14 @@ bool ctMap::Start()
 	
 	App->entities->SpawnEntity(0, 0, PLAYER);
 
+	player = App->entities->GetPlayer();
+
 	App->entities->SpawnEntity(100, 400, ENEMY);
 
 	App->entities->SpawnEntity(800, 500, ENEMY);
 
 	
-	App->audio->AddMusicToList("audio/music/Sword Unsheathed.ogg", CASUAL);
+	App->audio->AddMusicToList("audio/music/Short1.ogg", CASUAL);
 	App->audio->AddMusicToList("audio/music/TES V Skyrim Soundtrack - Awake.ogg", CASUAL);
 
 	App->audio->AddMusicToList("audio/music/TES V Skyrim Soundtrack - Combat 1.ogg", BATTLE);
@@ -80,44 +82,32 @@ bool ctMap::Update(float dt)
 {
 	App->render->DrawQuad({ 600,400,800,400 }, 40, 240, 220, 240, true, false);
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
-		
-		
-	}
-
-
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
-		//Mix_SetPosition(1, sound_angle, sound_distance);
-		//Mix_SetDistance(1, fx_distance);
-		if (sound_angle <= 20)
-			sound_angle = 255;
-		else
-			sound_angle = 0;
-		LOG("ANGLE:%i", sound_angle);
-	}
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
-		//Play3DSound("audio/fx/fx_1.wav");
-		App->audio->PauseMusic();
-	}
-	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
-		if (sound_distance <= 20)
-			sound_distance = 225;
-		else
-			sound_distance = 1;
-		
-	}
-
-
-
-	//if (!Mix_SetPanning(2, left_ear, right_ear))
-		//LOG("Mix_SetPanning: %s\n", Mix_GetError());
-	//Mix_SetPanning(0, left_ear, right_ear);
-	//Mix_SetPanning(1, left_ear, right_ear);
-
 	
 
-	//if (!Mix_SetPosition(2, 135, 100)) 
-	//	printf("Mix_SetPosition: %s\n", Mix_GetError());
+
+	
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+		App->audio->PauseMusic();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN) {
+		
+		
+	}
+
+	if (player->position.x >= 600 && player->position.y >= 400 && App->audio->currentPlaylist==CASUAL)
+	{
+		LOG("Player in the battle zone");
+		App->audio->PlayMusicPlaylist(BATTLE);
+
+	}
+
+	if ((player->position.x < 590 || player->position.y < 390) && App->audio->currentPlaylist == BATTLE)
+	{
+		LOG("Player in the safe zone");
+		App->audio->PlayMusicPlaylist(CASUAL);
+
+	}
+
 
 
 	return true;
@@ -167,10 +157,3 @@ void ctMap::LoadRect(pugi::xml_node rect_node, SDL_Rect* rect)
 }
 
 
-void ctMap::Play3DSound(const char* id) {
-
-	Mix_Chunk* chunk = Mix_LoadWAV(id);
-	Mix_SetPosition(2, sound_angle, sound_distance);
-	Mix_PlayChannel(-1, chunk, 0);
-
-}

@@ -45,7 +45,7 @@ void Enemy::Update(float dt)
 		LOG("Player:%i,%i. Enemy:%i,%i. Angle=%i, Dist=%i", App->entities->GetPlayer()->position.x, App->entities->GetPlayer()->position.y, this->position.x, this->position.y,
 															App->audio->GetAngle(App->entities->GetPlayer()->position, this->position),
 															App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));*/
-		App->audio->PlayFxOnChannel(fx_1, App->audio->GetAngle(App->entities->GetPlayer()->position, this->position), App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));
+		App->audio->PlayFxOnChannel(fx_1, App->audio->GetAngle(App->entities->GetPlayer()->position, this->position), App->audio->GetVolumeFromDistance(App->entities->GetPlayer()->position, this->position));
 
 	}
 
@@ -61,7 +61,7 @@ void Enemy::Update(float dt)
 			App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));
 	*/
 
-		App->audio->PlayFxOnChannel(fx_2, App->audio->GetAngle(App->entities->GetPlayer()->position, this->position), App->audio->GetDistance(App->entities->GetPlayer()->position, this->position));
+		App->audio->PlayFxOnChannel(fx_2, App->audio->GetAngle(App->entities->GetPlayer()->position, this->position), App->audio->GetVolumeFromDistance(App->entities->GetPlayer()->position, this->position));
 
 	}
 
