@@ -1,5 +1,5 @@
 
-I am [Ricardo Gutiérrez](https://www.linkedin.com/in/ricardo-guti%C3%A9rrez-5a7a0b161/?trk=onboarding-landing&dl=no), student of the [Bachelor’s Degree in Video Games by UPC at CITM](https://www.citm.upc.edu/ing/estudis/graus-videojocs/). This content is generated for the second year’s subject Project 2, under supervision of lecturer [Ricard Pillosu](https://es.linkedin.com/in/ricardpillosu).
+I am [Ricardo Gutiérrez](www.linkedin.com/in/ricardo-gutiérrez-5a7a0b161), student of the [Bachelor’s Degree in Video Games by UPC at CITM](https://www.citm.upc.edu/ing/estudis/graus-videojocs/). This content is generated for the second year’s subject Project 2, under supervision of lecturer [Ricard Pillosu](https://es.linkedin.com/in/ricardpillosu).
 
 # Introduction
 
@@ -12,7 +12,8 @@ For this part we'll mostly use and create functions under the MUSIC label.
 
 ## Basic Music Functions
 
-![Basic Music Functions](https://github.com/Ricardogll/Audio-Research/blob/master/docs/MusicFuncs.png)
+![Basic Music Functions](/docs/MusicFuncs.png?raw=true "Basic Music Functions")
+
 
 * **PlayMusic:** This will allow us to start playing music giving the path to the file, the amount of times we want it to loop (-1 for infinite) and a fade in and fade out time in case we are already playing a song.
 
@@ -61,7 +62,6 @@ There are 2 ways to avoid this:
 
 
 //*******************
-
 
 
 luego cuando explique cambio de musica hacer todos de poner enum, nueva lista, etc. Since we are later making the music swap between casual music and battle music I'll add an extra list to differentiate between these two.
