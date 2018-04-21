@@ -25,7 +25,7 @@ For this part we'll mostly use and create functions under the MUSIC label.
 
 Now this is were the real thing starts. We want to have a playlist of music that can loop over and over through the songs we add. Since we need [Mix_Music](http://sdl.beuc.net/sdl.wiki/Mix_Music) to load and play music, lets have a list of Mix_Music* that will allow us to push and pop either back or front as we need.
 
-*img std::list playlist 8
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/8.png)
 
