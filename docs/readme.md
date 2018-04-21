@@ -26,7 +26,7 @@ Now this is were the real thing starts. We want to have a playlist of music that
 
 ### TODO
 
-Now add the music of the path recieved to your playlist. Once done, you can start to add songs to the playlist on the scene, in my case *ctMap*.
+Now go to the function AddMusicToList and add the music of the path recieved to your playlist. Once done, you can start to add songs to the playlist on the scene, in my case *ctMap*.
 
 *img de los pasos
 
@@ -34,6 +34,34 @@ Now we'll need to play the music in our playlist. Take a look at PlayMusic funct
 
 *img pasos
 
-Explicar funcion al principio del cpp para q llame cuando acabe la cancion
+Now we can start playing our playlist on our scene.
+
+*img map metiendo musica en la pl y playingplaylist
+
+## TODO
+
+But what happens is that the first song plays and that's all. Now we'll need to somehow know when a song is finished to go onto the next one right? This is where [Mix_HookMusicFinished](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_69.html) comes. This will allow us to set up a function to be called whenever a song ends.
+
+So for now we only want a basic function SongFinished that will set a bool song_finished to true, then we'll work from there.
+
+TIP:
+
+MixHookMusicFinished asks for a normal function, not a member function and will give you this error if you do this mistake.
+*img error de hacer funcion en el ctaudio
+
+There are 2 ways to avoid this:
+
+* Declare your function and bool as static members. This means that there will only be one instance of this variable shared between all instantiations of our App.
+
+*imagen static
+
+* Or the simplest solution, making the function and bool normal functions by declaring them outside the audio module.
+
+*imagen func arriba de audio.cpp
+
+
+//*******************
+
+
 
 luego cuando explique cambio de musica hacer todos de poner enum, nueva lista, etc. Since we are later making the music swap between casual music and battle music I'll add an extra list to differentiate between these two.
