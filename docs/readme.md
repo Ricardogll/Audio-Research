@@ -188,3 +188,25 @@ While we can work with SDL_mixer and it's functionalities to do this, I encourag
 If you are still here, lets start talking about some different things we might find working with fx that we didn't with music. While earlier we worked with Mix_Music, for fx we are going to work with [Mix_Chunks](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_85.html). We also are going to start working with [channels](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_25.html), that won't have a thing in common with music. SDL does this because while music are usually longer and only play one at a time, sound effects can be extremely short and play multiple at a time. The ammount of sounds we can play at a time will be decided by the ammount of channels we have, so if we have only 1 channel and try to play 2 sounds at the same time, one will play and the other one will start once the first ended. This is why we are going to allocate multiple channels so we don't run into this problem.
 
 ## Basic Fx Functions
+
+* **LoadFx:** This will load a Mix_Chunk created from a path into an array with al Mix_Chunks.
+
+* **PlayFx:** Basic function used to play a previouly loaded fx. We can set the ammount of times we want it to loop.
+
+* **UnLoadFx:** Function we will use to clear and free our chunks.
+
+## Spatial Audio Functions
+
+* **GetAngle:** This function will return the angle between 2 points(x,y). Keep in mind this is how we will use angles from now on:
+
+*img angulos
+
+The center will be the player, so if we use GetAngle for an enemy that is at the left of the player, GetAngle will return 270.
+
+
+* **GetVolumeFromDistance:** Here, as the previos function, we will give 2 points and the function will calculate at what volume should we play a sound effect.
+
+<math.h> if you follow along
+
+
+
