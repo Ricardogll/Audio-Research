@@ -39,7 +39,7 @@ Now we can start playing our playlist on our scene.
 
 *img map metiendo musica en la pl y playingplaylist
 
-## TODO
+### TODO
 
 But what happens is that the first song plays and that's all. Now we'll need to somehow know when a song is finished to go onto the next one right? This is where [Mix_HookMusicFinished](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_69.html) comes. This will allow us to set up a function to be called whenever a song ends.
 
@@ -74,6 +74,15 @@ TIP:
 Since in previous TODO (PlayMusicPlaylist) we started the playlist by the front, we will have to pop this and put it back at the end of the list. Don't forget to PlayMusicPlaylist again once you've done that.
 
 *img del if(song_finished)
+
+Now we should be able to hear the songs we added to the playlist cycling over and over. *(Use songs: Short1.ogg, Short2.ogg and Short3.ogg for 5 to 10 secongs long songs to check how you did).*
+
+## Now lets make 2 playlists for different moods!
+
+Now that we've learned how to make a playlist, we will go into the next step. Make 2 playlists.
+
+We will differentiate this 2 by CASUAL and BATTLE playlists. What we want to accomplish is to have the playlists change whenever we approach certain enemy or zone in our game. In this case we will try to make music be peaceful on the black part of the map and on the cyan part we will enter a combat zone and change playlist.
+
 //*******************
 
 
