@@ -6,7 +6,7 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #include <list>
 
-#define DEFAULT_MUSIC_FADE_TIME 5.5f
+#define DEFAULT_MUSIC_FADE_TIME 2.0f
 #define MAX_FX 200
 #define MAX_DISTANCE 500		 //Set it to the furthest you will be able to hear fx's
 #define VOLUME_AT_MAX_DIST 250   //Change as you like. Goes between 255 (volume 0) and 0 (maximum volume)
@@ -68,15 +68,14 @@ public:
 	unsigned int LoadFx(const char* path);
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
-	//bool PlayFxOnChannel(uint fx, uint channel, uint distance = 1, int repeat = 0); //BORRAR
-	bool PlayFxOnChannel();
+	bool PlayFxOnChannel(uint fx, uint channel, uint distance = 1, int repeat = 0);
+	
 	// UnLoad WAV
 	bool UnLoadFx(uint id);
 
-	//uint GetAngle(iPoint pos_player, iPoint pos_enemy);//BORRAR
-	//uint GetVolumeFromDistance(iPoint pos_player, iPoint pos_enemy);//BORRAR
-	uint GetAngle();
-	uint GetVolumeFromDistance();
+	
+	uint GetAngle(iPoint pos_player, iPoint pos_enemy);
+	uint GetVolumeFromDistance(iPoint pos_player, iPoint pos_enemy);
 	void SetChannelsAngles();
 
 private:

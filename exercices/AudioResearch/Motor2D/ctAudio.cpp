@@ -4,7 +4,7 @@
 
 #include "ctInput.h"
 #include "ctApp.h"
-#include <math.h>//TODO//BORRAR
+#include <math.h>
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
@@ -82,9 +82,12 @@ bool ctAudio::Awake(pugi::xml_node& config)
 		active = false;
 		ret = true;
 	}
+	//TODO 4 Allocate channels you will need and set their angles
+	//If you want to follow along use 360 and set angles with SetChannelsAngles()
 
-	//Mix_AllocateChannels(360); //BORRAR
-	//SetChannelsAngles(); //BORRAR?
+	Mix_AllocateChannels(360);
+	SetChannelsAngles();
+
 	Mix_VolumeMusic(volume);
 
 	//TODO 2.2 Use Mix_HookMusicFinished and link your song finished function to it.
@@ -388,6 +391,35 @@ bool ctAudio::PlayFx(unsigned int id, int repeat)
 	return ret;
 }
 
+bool ctAudio::PlayFxOnChannel(uint id, uint channel, uint distance, int repeat) {
+
+	if (!active)
+		return false;
+	
+	bool ret = false;
+
+	if (fx[id] != nullptr)
+	{
+
+		//TODO 5 Play fx on the received channel, angle and distance. The angle is the same as the channel number in our case!
+		//If a channel is playing, look on the next one. If you reach channel 360 go back to channel 0. Check the channel state with Mix_Playing
+		//Once you find a free channel, set the position(angle and distance) of it and play it!
+		//Useful functions: Mix_SetPosition and Mix_PlayChannel.
+
+		while (Mix_Playing(channel) == 1) {
+			channel++;
+			if (channel >= 360)
+				channel = 0;
+		}
+		Mix_SetPosition(channel, channel, distance);
+		Mix_PlayChannel(channel, fx[id], repeat);
+
+		ret = true;
+	}
+
+	return ret;
+}
+
 //bool ctAudio::PlayFxOnChannel(uint id, uint channel, uint distance, int repeat)//BORRAR
 //{
 //
@@ -433,57 +465,57 @@ bool ctAudio::UnLoadFx(uint id)
 	return ret;
 }
 
-//uint ctAudio::GetAngle(iPoint pos_player, iPoint pos_enemy) { //BORRAR?
-//
-//	//We make player the center of a new frame. So its position on this frame will be (0,0), and calculate the new enemy position accordint to this frame.
-//	iPoint vec_p = { 0,1 };//We want to get the angle that is created with the Y axis, so we will caculate the angle between axis y (0,1) and 
-//	iPoint vec_e=pos_enemy-pos_player;// this new vector of enemy-player positions.
-//
-//	double dot = (vec_p.x*vec_e.x) + (vec_p.y*vec_e.y);  //Dot product
-//	double det = (vec_p.x*vec_e.y) - (vec_p.y*vec_e.x);//Determinant
-//	
-//	float ret_f = (atan2(det, dot)) * RADS_TO_DEG;
-//	ret_f += 180;
-//	uint ret = static_cast<uint>(ret_f);
-//	return ret;
-//}
+uint ctAudio::GetAngle(iPoint pos_player, iPoint pos_enemy) { 
+
+	//We make player the center of a new frame. So its position on this frame will be (0,0), and calculate the new enemy position accordint to this frame.
+	iPoint vec_p = { 0,1 };//We want to get the angle that is created with the Y axis, so we will caculate the angle between axis y (0,1) and 
+	iPoint vec_e=pos_enemy-pos_player;// this new vector of enemy-player positions.
+
+	double dot = (vec_p.x*vec_e.x) + (vec_p.y*vec_e.y);  //Dot product
+	double det = (vec_p.x*vec_e.y) - (vec_p.y*vec_e.x);//Determinant
+	
+	float ret_f = (atan2(det, dot)) * RADS_TO_DEG;
+	ret_f += 180;
+	uint ret = static_cast<uint>(ret_f);
+	return ret;
+}
 
 
-//uint ctAudio::GetVolumeFromDistance(iPoint pos_player, iPoint pos_enemy) { //BORRAR?
-//	uint ret = 0;
-//	double dist_in_pixels= sqrt(abs(pow((pos_enemy.x - pos_player.x), 2) + pow((pos_enemy.y - pos_player.y), 2)));
-//
-//	if (dist_in_pixels >= NO_SOUND_DISTANCE) {
-//		return 255;
-//	}
-//
-//	double dist_change_scale = (255.0 / MAX_DISTANCE) * dist_in_pixels;  //Set scale as you like changing MAX_DISTANCE
-//
-//	ret = static_cast<uint>(dist_change_scale);
-//	
-//	if (ret > 255) 
-//		ret = VOLUME_AT_MAX_DIST;
-//	
-//	
-//
-//	return ret;
-//}
+uint ctAudio::GetVolumeFromDistance(iPoint pos_player, iPoint pos_enemy) { 
+	uint ret = 0;
+	double dist_in_pixels= sqrt(abs(pow((pos_enemy.x - pos_player.x), 2) + pow((pos_enemy.y - pos_player.y), 2)));
+
+	if (dist_in_pixels >= NO_SOUND_DISTANCE) {
+		return 255;
+	}
+
+	double dist_change_scale = (255.0 / MAX_DISTANCE) * dist_in_pixels;  //Set scale as you like changing MAX_DISTANCE
+
+	ret = static_cast<uint>(dist_change_scale);
+	
+	if (ret > 255) 
+		ret = VOLUME_AT_MAX_DIST;
+	
+	
+
+	return ret;
+}
 
 
 
 
 //Set every channel to have the same angle as the channel number
-//void ctAudio::SetChannelsAngles()  //BORRAR
-//{
-//
-//	uint angle = 0;
-//
-//	
-//	for (int i = 0; i <= 360; i++) {
-//		Mix_SetPosition(i, i, 1);
-//	}
-//
-//}
+void ctAudio::SetChannelsAngles()
+{
+
+	uint angle = 0;
+
+	
+	for (int i = 0; i <= 360; i++) {
+		Mix_SetPosition(i, i, 1);
+	}
+
+}
 
 //bool ctAudio::AddMusicToList(const char* path, PlaylistType pl_type) {  //BORRAR
 //	
