@@ -83,6 +83,28 @@ Now that we've learned how to make a playlist, we will go into the next step. Ma
 
 We will differentiate this 2 by CASUAL and BATTLE playlists. What we want to accomplish is to have the playlists change whenever we approach certain enemy or zone in our game. In this case we will try to make music be peaceful on the black part of the map and on the cyan part we will enter a combat zone and change playlist.
 
+We will have to go over the previous TODO's and adjust them for 2 types of playlist.
+
+First we will add an enum that will help us in the following steps.
+
+*foto enum
+
+We will also need to have 2 lists of Mix_Musix for our playlist.
+
+*foto playlists casual/battle
+
+In order to know what playlist we are playing currently lets add a PlaylistType variable. And don't forget to make it start in CASUAL or BATTLE in our constructor.
+
+*foto enum currentPlaylist
+
+For the last step on the .h we will have to adjust the parameters we recieve on AddMusicToList and PlayMusicPlaylist.
+
+*foto funciones con PlaylistType pl_type
+
+
+
+
+
 //*******************
 
 
