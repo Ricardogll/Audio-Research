@@ -12,6 +12,8 @@ For this part we'll mostly use and create functions under the MUSIC label.
 
 ## Basic Music Functions
 
+image
+
 ![Basic Music Functions](/docs/MusicFuncs.png?raw=true "Basic Music Functions")
 
 
