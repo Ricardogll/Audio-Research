@@ -60,7 +60,6 @@ TIP:
 
 MixHookMusicFinished asks for a normal function, not a member function and will give you this error if you do this mistake.
 
-*img error de hacer funcion en el ctaudio 4
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/4.png)
 
@@ -71,19 +70,20 @@ There are 2 ways to avoid this:
 * Declare your function and bool as static members. This means that there will only be one instance of this variable shared between all instantiations of our App.
 
 **static** void SongFinished();
+
 **static** bool song_finished();
 
 * Or the simplest solution, making the function and bool normal functions by declaring them outside the audio module.
 
 In my case I'll use the second way.
 
-*imagen func arriba de audio.cpp 5
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/5.png)
 
 And dont forget to link the function with MixHookMusicFinished
 
-*imagen start con mixhook 6
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/6.png)
 
@@ -94,7 +94,7 @@ TIP:
 
 Since in previous TODO 1.3 we started the playlist by the front, we will have to pop this and put it back at the end of the list. Don't forget to PlayMusicPlaylist again once you've done that.
 
-*img del if(song_finished) 7
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/7.png)
 
@@ -115,50 +115,50 @@ We will have to go over the previous TODO's and adjust them for 2 types of playl
 
 First we will add an enum that will help us in the following steps.
 
-*foto enum 9
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/9.png)
 
 We will also need to have 2 lists of Mix_Music for our playlist.
 
-*foto playlists casual/battle 10
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/10.png)
 
 In order to know what playlist we are playing currently lets add a PlaylistType variable. And don't forget to make it start in CASUAL or BATTLE in our constructor.
 
-*foto enum currentPlaylist 16
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/16.png)
 
 For the last step on the .h we will have to adjust the parameters we recieve on AddMusicToList and PlayMusicPlaylist.
 
-*foto funciones con PlaylistType pl_type 11
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/11.png)
 
 Now lets head into AddMusicToList and change it so we can add a song to one or the other playlist depending on what PlaylistType we recieve.
 
-*foto 12
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/12.png)
 
 Next, lets do the same with PlayMusicPlaylist and adjust it so we play a song based on the playlist type we recieve. Remember to set your enum variable to the type of music you are playing!
 
-*foto13
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/13.png)
 
 For the final adjustment we will go into the song_finished condition on our Update. Same as before, we will have to cycle ONLY throught the playlist that is currently playing.
 
-*foto14
+
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/14.png)
 
 Then head to the map and make our calls have a playlist type!
 
 Now we have all the necessary. Go to the loop of the map and uncomment a simple condition I made so that the music type changes once we enter the cyan area or we leave it.
 
-*foto15
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/15.png)
 
