@@ -211,11 +211,13 @@ The center will be the player, so if we use GetAngle for an enemy that is at the
 
 This defines will help you adjust this function to your liking.
 
-* MAX_DISTANCE will set the maximum distance at which we will be able to hear sounds from an entity.
+*img defines
 
-* VOLUME_AT_MAX_DIST will set the volume that the sound effects from entities further than MAX_DISTANCE will have. The loudest would be 0, while the quietest would be 255.
+· MAX_DISTANCE will set the maximum distance at which we will be able to hear sounds from an entity.
 
-* NO_SOUND_DISTANCE if we don't want to hear sounds from entities past X distance this is what we have to change.
+· VOLUME_AT_MAX_DIST will set the volume that the sound effects from entities further than MAX_DISTANCE will have. The loudest would be 0, while the quietest would be 255.
+
+· NO_SOUND_DISTANCE if we don't want to hear sounds from entities past X distance this is what we have to change.
 
 So if we use the values of defines set on the previous picture, this is what it would look like:
 
@@ -241,13 +243,15 @@ This last one can very well work with our 360 channels because SDL_mixer doesn't
 
 Allocate all channels you will need and set their angles. I will use SetChannelsAngles() that will set channel 0 with angle 0, channel 1 with angle 1, etc. Feel free to use a channel every 2 degrees or more if you want on your project.
 
+*setchann
+
 *img 4.1
 
-## TODO 5
+### TODO 5
 
 Now that we have the channels ready to play audio in all directions its time to play a fx on a channel according to its position and distance.
 
-Remember the uint channel we recieve is the same as the angle from where the sound is coming. Check if the channel is in use, and if it is go onto the next one. *You can use [Mix_Playing](http://sdl.beuc.net/sdl.wiki/Mix_Playing) to check the state of the channel.* If we reach channel 360, start over with channel 0.
+Remember the "uint channel" we recieve is the same as the angle from where the sound is coming. Check if the channel is in use, and if it is go onto the next one. *You can use [Mix_Playing](http://sdl.beuc.net/sdl.wiki/Mix_Playing) to check the state of the channel.* If we reach channel 360, start over with channel 0.
 
 Once a free channel is found, set the position (angle and distance) and play that channel.
 
@@ -257,7 +261,9 @@ Useful functions:
 
 * [Mix_PlayChannel](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_28.html).
 
-# TODO 6
+*img tod5
+
+### TODO 6
 
 Now we have to make our entities generate sound. I've loaded 2 different sounds for the 2 enemies (red squares). Uncomment the TODO 6 conditions and play fx_1 when we press 1 and fx_2 when we press 2. The rest of the condition is just to make one enemy do fx_1 sound while the other does fx_2 and be able to hear the difference of angles.
 
@@ -267,4 +273,12 @@ Use the player position and the enemy position to get the correct angles and dis
 
 *img 6.1
 
-[this is what it should look like.]() The first sound is related to the enemy on the left side of the screen, while the second is related to the enemy on the right.
+[this is what it should look like.](https://youtu.be/UBMnkvXZGj0) The first sound is related to the enemy on the left side of the screen, while the second is related to the enemy on the right.
+
+
+## What's next?
+
+If you really are interested into this, I encourage you to test for yourself [OpenAL](https://www.openal.org/) and have a little fun with it. It is a tool created specifically to work with 3D audio so it will multiply the level we were able to reach today.
+
+Thank you for your time and hope you were able to learn something from this guide. Until next time!
+
