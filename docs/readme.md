@@ -23,7 +23,9 @@ For this part we'll mostly use and create functions under the MUSIC label.
 
 ## Time to make a playlist!
 
-Now this is were the real thing starts. We want to have a playlist of music that can loop over and over through the songs we add. Since we need [Mix_Music](http://sdl.beuc.net/sdl.wiki/Mix_Music) to load and play music, lets have a list of Mix_Music* that will allow us to push and pop either back or front as we need. 
+Now this is were the real thing starts. We want to have a playlist of music that can loop over and over through the songs we add. Since we need [Mix_Music](http://sdl.beuc.net/sdl.wiki/Mix_Music) to load and play music, lets have a list of Mix_Music* that will allow us to push and pop either back or front as we need.
+
+*img std::list playlist 8
 
 ### TODO 1
 
@@ -48,6 +50,7 @@ So for now we only want a basic function SongFinished that will set a bool song_
 TIP:
 
 MixHookMusicFinished asks for a normal function, not a member function and will give you this error if you do this mistake.
+
 *img error de hacer funcion en el ctaudio 4
 *Argument of type "void (ctAudio::*)()" is incompatible with paramater of type "void(*)()"
 
@@ -55,28 +58,30 @@ There are 2 ways to avoid this:
 
 * Declare your function and bool as static members. This means that there will only be one instance of this variable shared between all instantiations of our App.
 
-*imagen static
+**static** void SongFinished();
+**static** bool song_finished();
 
 * Or the simplest solution, making the function and bool normal functions by declaring them outside the audio module.
 
+In my case I'll use the second way.
 
-*In my case I'll use the second way.
-
-*imagen func arriba de audio.cpp
+*imagen func arriba de audio.cpp 5
 
 And dont forget to link the function with MixHookMusicFinished
 
-*imagen start con mixhook
+*imagen start con mixhook 6
 
 Now we will have a bool that will set true every time a song ends. Let's head to our game loop, in my case the Update function. Add a condition that will check if a song has just finished, and if its true cycle the music through the playlist and set our bool back to false so we don't end up coming back into this condition every game loop.
 
 TIP:
 
-Since in previous TODO (PlayMusicPlaylist) we started the playlist by the front, we will have to pop this and put it back at the end of the list. Don't forget to PlayMusicPlaylist again once you've done that.
+Since in previous TODO 1.3 we started the playlist by the front, we will have to pop this and put it back at the end of the list. Don't forget to PlayMusicPlaylist again once you've done that.
 
-*img del if(song_finished)
+*img del if(song_finished) 7
 
 Now we should be able to hear the songs we added to the playlist cycling over and over. *(Use songs: Short1.ogg, Short2.ogg and Short3.ogg for 5 to 10 secongs long songs to check how you did).*
+
+*video cycling through music
 
 ## Now lets make 2 playlists for different moods!
 
@@ -84,23 +89,31 @@ Now that we've learned how to make a playlist, we will go into the next step. Ma
 
 We will differentiate this 2 by CASUAL and BATTLE playlists. What we want to accomplish is to have the playlists change whenever we approach certain enemy or zone in our game. In this case we will try to make music be peaceful on the black part of the map and on the cyan part we will enter a combat zone and change playlist.
 
+### TODO 3
+
 We will have to go over the previous TODO's and adjust them for 2 types of playlist.
 
 First we will add an enum that will help us in the following steps.
 
-*foto enum
+*foto enum 9
 
-We will also need to have 2 lists of Mix_Musix for our playlist.
+We will also need to have 2 lists of Mix_Music for our playlist.
 
-*foto playlists casual/battle
+*foto playlists casual/battle 10
 
 In order to know what playlist we are playing currently lets add a PlaylistType variable. And don't forget to make it start in CASUAL or BATTLE in our constructor.
 
-*foto enum currentPlaylist
+*foto enum currentPlaylist 10
 
 For the last step on the .h we will have to adjust the parameters we recieve on AddMusicToList and PlayMusicPlaylist.
 
-*foto funciones con PlaylistType pl_type
+*foto funciones con PlaylistType pl_type 11
+
+Now lets head into AddMusicToList and change it so we can add a song to one or the other playlist depending on what PlaylistType we recieve.
+
+*foto 12
+
+
 
 
 
