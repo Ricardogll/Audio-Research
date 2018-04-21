@@ -33,20 +33,20 @@ Now this is were the real thing starts. We want to have a playlist of music that
 
 Now go to the function **AddMusicToList** and add the music of the path recieved to your playlist. Once done, you can start to add songs to the playlist on the scene, in my case *ctMap*.
 
-*img de los pasos1 
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/1.png)
 
 Now we'll need to play the music in our playlist. Take a look at **PlayMusic** function to have an idea on how we can start playing music. Don't forget to add LOG's using [Mix_GetError()](http://sdl.beuc.net/sdl.wiki/Mix_GetError) in case anything fails and we need to know what happened.
 
-*img pasos2
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/2.png)
 
 
 Now we can start playing our playlist on our scene.
 
-*img map metiendo musica en la pl y playingplaylist 3
+
 
 ![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/3.png)
 
