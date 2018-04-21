@@ -127,7 +127,19 @@ Now we have all the necessary. Go to the loop of the map and uncomment a simple 
 
 *foto15
 
+*video cambiando musica
+
 This is just a way to show you that to change playlist we only need to call PlayMusicPlaylist with the type we want, so feel free to change the condition to "Enemy can see me", "Entering boss room" or whatever you want inside your game!
+
+## What to do now?
+
+Now it's your turn to get creative. 
+
+Do you want to have a different song every time you change zone? 
+
+Do you want to return to the same second of a song you changed after entering combat? [This will help you](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_65.html)
+
+Remember to always keep the [wiki](http://sdl.beuc.net/sdl.wiki/SDL_mixer) close and everything will be fine!
 
 //*******************
 
