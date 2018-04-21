@@ -177,4 +177,14 @@ Do you want to return to the same second of a song you changed after entering co
 Remember to always keep the [wiki](http://sdl.beuc.net/sdl.wiki/SDL_mixer) close and everything will be fine!
 
 
+# Spatial Audio
 
+Let's move on to the next subject, spatial audio. Spatial audio is a feature that is not always needed in games, but placing it in the correct ones can really make a difference. I am mostly talking about games which require a high level of reactions and have a fast pace. If we are playing a game of Overwatch and attacks us one side or another, we have to be able to react by just hearing the shot. 
+
+Other types of games can also benefit from this feature, always adding an extra reality and immersion to our games.
+
+While we can work with SDL_mixer and it's functionalities to do this, I encourage you to go and learn OpenAL if what you want is a more precise and overall higher level of spatial audio.
+
+If you are still here, lets start talking about some different things we might find working with fx that we didn't with music. While earlier we worked with Mix_Music, for fx we are going to work with [Mix_Chunks](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_85.html). We also are going to start working with [channels](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_25.html), that won't have a thing in common with music. SDL does this because while music are usually longer and only play one at a time, sound effects can be extremely short and play multiple at a time. The ammount of sounds we can play at a time will be decided by the ammount of channels we have, so if we have only 1 channel and try to play 2 sounds at the same time, one will play and the other one will start once the first ended. This is why we are going to allocate multiple channels so we don't run into this problem.
+
+## Basic Fx Functions
