@@ -125,7 +125,7 @@ We will also need to have 2 lists of Mix_Music for our playlist.
 
 ![](images/10.png)
 
-In order to know what playlist we are playing currently lets add a PlaylistType variable. And don't forget to make it start in CASUAL or BATTLE in our constructor.
+In order to know what playlist we are playing currently lets add a PlaylistType variable.
 
 
 
