@@ -12,8 +12,6 @@ For this part we'll mostly use and create functions under the MUSIC label.
 
 ## Basic Music Functions
 
-image
-
 ![Basic Music Functions](/docs/MusicFuncs.png?raw=true "Basic Music Functions")
 
 
@@ -60,9 +58,22 @@ There are 2 ways to avoid this:
 
 * Or the simplest solution, making the function and bool normal functions by declaring them outside the audio module.
 
+
+*In my case I'll use the second way.
+
 *imagen func arriba de audio.cpp
 
+And dont forget to link the function with MixHookMusicFinished
 
+*imagen start con mixhook
+
+Now we will have a bool that will set true every time a song ends. Let's head to our game loop, in my case the Update function. Add a condition that will check if a song has just finished, and if its true cycle the music through the playlist and set our bool back to false so we don't end up coming back into this condition every game loop.
+
+TIP:
+
+Since in previous TODO (PlayMusicPlaylist) we started the playlist by the front, we will have to pop this and put it back at the end of the list. Don't forget to PlayMusicPlaylist again once you've done that.
+
+*img del if(song_finished)
 //*******************
 
 
