@@ -3,7 +3,7 @@ I am [Ricardo Gutiérrez](www.linkedin.com/in/ricardo-gutiérrez-5a7a0b161), stu
 
 # Introduction
 
-In this guide I'll walk you through 2 different audio related problems we might need to take the audio on our game to the next step. Firstly we'll talk about a general music manager and some of the features in it. Later on, we'll see spacial audio, were we'll be able to hear audio coming from 360 angles.
+In this guide I'll walk you through 2 different audio related problems we might need to work on to take the audio on our game to the next step. Firstly we'll talk about a general music manager, creating music playlist and changing between playlists depending on the moment of the game. Later on, we'll see spacial audio, were we'll be able to hear audio coming from 360 angles.
 
 # Music Manager
 
@@ -170,18 +170,18 @@ This is just a way to show you that to change playlist we only need to call Play
 
 Now it's your turn to get creative. 
 
-Do you want to have a different song every time you change zone? 
+Do you want to have a different song play every time you change zone?(Not play song casual 1, then song battle 1, then again song casual1, etc.)
 
-Do you want to return to the same second of a song you changed after entering combat? [This will help you](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_65.html)
+Do you want to return to the same moment of a song you changed after entering combat when ending the combat? [This will help you](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_65.html)
 
 Remember to always keep the [wiki](http://sdl.beuc.net/sdl.wiki/SDL_mixer) close and everything will be fine!
 
 
 # Spatial Audio
 
-Let's move on to the next subject, spatial audio. Spatial audio is a feature that is not always needed in games, but placing it in the correct ones can really make a difference. I am mostly talking about games which require a high level of reactions and have a fast pace. If we are playing a game of Overwatch and attacks us one side or another, we have to be able to react by just hearing the shot. 
+Let's move on to the next subject, spatial audio. Spatial audio is a feature that is not always needed in games, but placing it in the correct ones can really make a difference. I am mostly talking about games which require a high level of reactions and have a fast pace. If we are playing a game of Overwatch and someone attacks us from one side or another, we have to be able to react by just hearing the shot. 
 
-Other types of games can also benefit from this feature, always adding an extra reality and immersion to our games.
+Of course, other types of games can also benefit from this feature, always adding extra reality and immersion to our games.
 
 While we can work with SDL_mixer and it's functionalities to do this, I encourage you to go and learn OpenAL if what you want is a more precise and overall higher level of spatial audio.
 
@@ -273,12 +273,12 @@ Use the player position and the enemy position to get the correct angles and dis
 
 ![](images/todo6-1.png)
 
-[this is what it should look like.](https://youtu.be/UBMnkvXZGj0) The first sound is related to the enemy on the left side of the screen, while the second is related to the enemy on the right.
+[This is what it should look like.](https://youtu.be/UBMnkvXZGj0) The first sound is related to the enemy on the left side of the screen, while the second is related to the enemy on the right.
 
 
 ## What's next?
 
-If you really are interested into this, I encourage you to test for yourself [OpenAL](https://www.openal.org/) and have a little fun with it. It is a tool created specifically to work with 3D audio so it will multiply the level we were able to reach today.
+If you really are interested into this, I encourage you to test for yourself [OpenAL](https://www.openal.org/) and have a little fun with it. It is a tool created specifically to work with 3D audio so it will multiply the level we were able to reach today for sure!
 
 Thank you for your time and hope you were able to learn something from this guide. Until next time!
 
