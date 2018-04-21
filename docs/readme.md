@@ -239,7 +239,15 @@ This last one can very well work with our 360 channels because SDL_mixer doesn't
 
 ### TODO 4
 
-Allocate all channels you will need and set their angles. I will use SetChannelsAngles() the will set channel 0 with angle 0, channel 1 with angle 1, etc. Feel free to use a channel every 2 degrees or more if you want on your project.
+Allocate all channels you will need and set their angles. I will use SetChannelsAngles() that will set channel 0 with angle 0, channel 1 with angle 1, etc. Feel free to use a channel every 2 degrees or more if you want on your project.
 
+*img 4.1
 
+## TODO 5
+
+Now that we have the channels ready to play audio in all directions its time to play an fx on the a channel according to its position and distance.
+
+Remember the uint channel we recieve is the same as the angle from where the sound is coming. Check if the channel is in use, and if it is go onto the next one. *You can use [Mix_Playing](http://sdl.beuc.net/sdl.wiki/Mix_Playing) to check the state of the channel.*
+
+If we reach channel 360, start over with channel 0.
 
