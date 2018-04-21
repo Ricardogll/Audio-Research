@@ -16,14 +16,16 @@
 struct _Mix_Music;
 struct Mix_Chunk;
 
-//enum PlaylistType //BORRAR
-//{
-//	CASUAL = 0,
-//	BATTLE,
-//
-//
-//	NONE=-1,
-//};
+
+//TODO 3.1 Add enum to differentiate between CASUAL and BATTLE music
+enum PlaylistType 
+{
+	CASUAL = 0,
+	BATTLE,
+
+
+	NONE=-1,
+};
 
 
 class ctAudio : public ctModule
@@ -56,8 +58,10 @@ public:
 
 	//bool AddMusicToList(const char* path, PlaylistType pl_type); //BORRAR ENTRE PARENTESIS
 	//bool PlayMusicPlaylist(PlaylistType pl_type, float fade_time = DEFAULT_MUSIC_FADE_TIME); //BORRAR ENTRE PARENTESIS
-	bool AddMusicToList();
-	bool PlayMusicPlaylist();
+	
+	//TODO 3.3 Add a PlaylistType (or however you called your enum) variable to the functions
+	bool AddMusicToList(const char* path, PlaylistType pl_type);
+	bool PlayMusicPlaylist(PlaylistType pl_type);
 
 	//FX
 	// Load a WAV in memory
@@ -83,12 +87,17 @@ private:
 	uint				last_fx = 1;
 	uint				volume = 50;
 
-	//std::list<Mix_Music*> playlist_casual; //BORRAR
-	//std::list<Mix_Music*> playlist_battle;
-	
+
+	//TODO 3.2 Make 2 lists, one for casual music and other for battle
+
+	std::list<Mix_Music*> playlist_casual; 
+	std::list<Mix_Music*> playlist_battle;
+
+	std::list<Mix_Music*> playlist;
+
 public:
 	
-	//enum PlaylistType currentPlaylist = NONE; //BORRAR
+	enum PlaylistType currentPlaylist = NONE; 
 	
 };
 

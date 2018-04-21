@@ -76,7 +76,7 @@ bool ctGui::PostUpdate()
 bool ctGui::CleanUp()
 {
 	LOG("Freeing GUI");
-	//TODO unload tex
+	
 
 	for (uint i = 0; i < ui_elements.capacity(); ++i)
 	{
