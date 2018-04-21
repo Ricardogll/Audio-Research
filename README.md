@@ -1,7 +1,12 @@
 # Audio Research
+
 Research of spacial audio and music manager with SDL_mixer. How to hear fx from any angle, make music playlists and more!
 
 In this guide I will show one of many ways you can apply this to your projects.
+
+* [Github](https://github.com/Ricardogll/Audio-Research)  
+
+* [Website](https://ricardogll.github.io/Audio-Research/)
 
 ## How to follow?
 
