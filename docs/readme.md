@@ -197,21 +197,21 @@ If you are still here, lets start talking about some different things we might f
 
 ## Spatial Audio Functions
 
-*img GetAngle
+![](images/getAngle.png)
 
 * **GetAngle:** This function will return the angle between 2 points(x,y). Keep in mind this is how we will use angles from now on:
 
-*img angulos
+![](images/angles.png)
 
 The center will be the player, so if we use GetAngle for an enemy that is at the left of the player, GetAngle will return 270.
 
-*img GetVolumeFromDist
+![](images/getVolumeDist.png)
 
 * **GetVolumeFromDistance:** Here, as the previos function, we will give 2 points and the function will calculate at what volume should we play a sound effect.
 
 This defines will help you adjust this function to your liking.
 
-*img defines
+![](images/defines.png)
 
 · MAX_DISTANCE will set the maximum distance at which we will be able to hear sounds from an entity.
 
@@ -221,7 +221,7 @@ This defines will help you adjust this function to your liking.
 
 So if we use the values of defines set on the previous picture, this is what it would look like:
 
-*img radar
+![](images/radar.png)
 
 If an enemy is inside the green zone, we will hear him from maximum volume to VOLUME_AT_MAX_DIST when green meets orange(MAX_DISTANCE). On the whole orange space we will alway hear sounds at VOLUME_AT_MAX_DIST. If we go into the red zone(NO_SOUND_DISTANCE) or further, we won't hear anything coming from that entity.
 
@@ -243,9 +243,9 @@ This last one can very well work with our 360 channels because SDL_mixer doesn't
 
 Allocate all channels you will need and set their angles. I will use SetChannelsAngles() that will set channel 0 with angle 0, channel 1 with angle 1, etc. Feel free to use a channel every 2 degrees or more if you want on your project.
 
-*setchann
+![](images/setchann.png)
 
-*img 4.1
+![](images/todo4.png)
 
 ### TODO 5
 
@@ -261,17 +261,17 @@ Useful functions:
 
 * [Mix_PlayChannel](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_28.html).
 
-*img tod5
+![](images/todo5.png)
 
 ### TODO 6
 
 Now we have to make our entities generate sound. I've loaded 2 different sounds for the 2 enemies (red squares). Uncomment the TODO 6 conditions and play fx_1 when we press 1 and fx_2 when we press 2. The rest of the condition is just to make one enemy do fx_1 sound while the other does fx_2 and be able to hear the difference of angles.
 
-*img 6
+![](images/todo6.png)
 
 Use the player position and the enemy position to get the correct angles and distances in order to call PlayFxOnChannel.
 
-*img 6.1
+![](images/todo6-1.png)
 
 [this is what it should look like.](https://youtu.be/UBMnkvXZGj0) The first sound is related to the enemy on the left side of the screen, while the second is related to the enemy on the right.
 
