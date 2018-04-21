@@ -12,7 +12,7 @@ For this part we'll mostly use and create functions under the MUSIC label.
 
 ## Basic Music Functions
 
-![Basic Music Functions](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/MusicFuncs.png)
+![Basic music functions](images/MusicFuncs.png)
 
 
 * **PlayMusic:** This will allow us to start playing music giving the path to the file, the amount of times we want it to loop (-1 for infinite) and a fade in and fade out time in case we are already playing a song.
@@ -27,7 +27,7 @@ Now this is were the real thing starts. We want to have a playlist of music that
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/8.png)
+![](images/8.png)
 
 ### TODO 1
 
@@ -35,20 +35,20 @@ Now go to the function **AddMusicToList** and add the music of the path recieved
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/1.png)
+![](images/1.png)
 
 Now we'll need to play the music in our playlist. Take a look at **PlayMusic** function to have an idea on how we can start playing music. Don't forget to add LOG's using [Mix_GetError()](http://sdl.beuc.net/sdl.wiki/Mix_GetError) in case anything fails and we need to know what happened.
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/2.png)
+![](images/2.png)
 
 
 Now we can start playing our playlist on our scene.
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/3.png)
+![](images/3.png)
 
 ### TODO 2
 
