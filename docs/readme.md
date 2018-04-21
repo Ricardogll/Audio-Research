@@ -113,11 +113,21 @@ Now lets head into AddMusicToList and change it so we can add a song to one or t
 
 *foto 12
 
+Next, lets do the same with PlayMusicPlaylist and adjust it so we play a song based on the playlist type we recieve. Remember to set your enum variable to the type of music you are playing!
 
+*foto13
 
+For the final adjustment we will go into the song_finished condition on our Update. Same as before, we will have to cycle ONLY throught the playlist that is currently playing.
 
+*foto14
 
+Then head to the map and make our calls have a playlist type!
 
+Now we have all the necessary. Go to the loop of the map and uncomment a simple condition I made so that the music type changes once we enter the cyan area or we leave it.
+
+*foto15
+
+This is just a way to show you that to change playlist we only need to call PlayMusicPlaylist with the type we want, so feel free to change the condition to "Enemy can see me", "Entering boss room" or whatever you want inside your game!
 
 //*******************
 
