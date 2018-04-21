@@ -12,7 +12,7 @@ For this part we'll mostly use and create functions under the MUSIC label.
 
 ## Basic Music Functions
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/MusicFuncs.png)
+![Basic Music Functions](https://github.com/Ricardogll/Audio-Research/blob/master/docs/MusicFuncs.png)
 
 * **PlayMusic:** This will allow us to start playing music giving the path to the file, the amount of times we want it to loop (-1 for infinite) and a fade in and fade out time in case we are already playing a song.
 
