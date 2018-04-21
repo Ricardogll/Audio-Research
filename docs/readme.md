@@ -31,7 +31,7 @@ Now this is were the real thing starts. We want to have a playlist of music that
 
 ### TODO 1
 
-Now go to the function **AddMusicToList** and add the music of the path recieved to your playlist. Once done, you can start to add songs to the playlist on the scene, in my case *ctMap*.
+Now go to the function **AddMusicToList** and add the music of the path received to your playlist. Once done, you can start to add songs to the playlist on the scene, in my case *ctMap*.
 
 
 
@@ -247,7 +247,13 @@ Allocate all channels you will need and set their angles. I will use SetChannels
 
 Now that we have the channels ready to play audio in all directions its time to play an fx on the a channel according to its position and distance.
 
-Remember the uint channel we recieve is the same as the angle from where the sound is coming. Check if the channel is in use, and if it is go onto the next one. *You can use [Mix_Playing](http://sdl.beuc.net/sdl.wiki/Mix_Playing) to check the state of the channel.*
+Remember the uint channel we recieve is the same as the angle from where the sound is coming. Check if the channel is in use, and if it is go onto the next one. *You can use [Mix_Playing](http://sdl.beuc.net/sdl.wiki/Mix_Playing) to check the state of the channel.* If we reach channel 360, start over with channel 0.
 
-If we reach channel 360, start over with channel 0.
+Once a free channel is found, set the position (angle and distance) and play that channel.
+
+Useful functions: 
+
+* [Mix_SetPosition](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_82.html).
+
+* [Mix_PlayChannel](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_28.html).
 
