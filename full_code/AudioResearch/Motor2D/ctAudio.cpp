@@ -10,23 +10,19 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
+
+//TODO 2.1 Create normal function and a bool to call when a song has finished
+
 bool song_finished = false;
 void SongFinished() {
 	song_finished = true;
-	/*uint currentTime=SDL_GetTicks();
-
-	if (currentTime >= App->audio->lastTime + DEFAULT_MUSIC_FADE_TIME * 1000)
-	{
-		song_finished = true;
-		App->audio->lastTime = currentTime;
-	}*/
 }
 
 ctAudio::ctAudio() : ctModule()
 {
 	music = NULL;
 	name = "audio";
-	currentPlaylist = CASUAL;
+
 }
 
 // Destructor
@@ -87,11 +83,15 @@ bool ctAudio::Awake(pugi::xml_node& config)
 		active = false;
 		ret = true;
 	}
-	//Mix_AllocateChannels(24);
+
+	//TODO 4 Allocate channels you will need and set their angles
+	//If you want to follow along use 360 and set angles with SetChannelsAngles()
 	Mix_AllocateChannels(360);
 	SetChannelsAngles();
+
 	Mix_VolumeMusic(volume);
 
+	//TODO 2.2 Use Mix_HookMusicFinished and link your song finished function to it.
 
 	Mix_HookMusicFinished(SongFinished);
 
@@ -122,7 +122,24 @@ bool ctAudio::Update(float dt)
 		volume = Mix_VolumeMusic(-1);
 	}
 	
+	//TODO 2.3 If a song has just finished, cycle through the playlist and set the bool back to false.
+	//TIP: since in TODO 1.3 we set that playlist plays from the front of the list, we will have to pop this and put it back at the end.
+	//Remember to PlayMusicPlaylist() once you've ended reordering the list!
 
+	/*if (song_finished) {
+	song_finished = false;
+
+	Mix_Music* temp;
+
+	temp = playlist.front();
+	playlist.pop_front();
+	playlist.push_back(temp);
+
+	temp = NULL;
+	PlayMusicPlaylist();
+	}*/
+
+	//TODO 3.6 Same as before, cycle ONLY through the playlist of the type that is currently playing.
 	if (song_finished) {
 		
 		song_finished = false;
@@ -163,6 +180,9 @@ bool ctAudio::CleanUp()
 	{
 		Mix_FreeMusic(music);
 	}
+
+	//Don't forget to clear playlists
+	
 	playlist_casual.clear();
 	playlist_battle.clear();
 	Mix_CloseAudio();
@@ -232,6 +252,102 @@ bool ctAudio::StopMusic() {
 	return true;
 }
 
+
+void ctAudio::PauseMusic()
+{
+	if (active)
+	{
+		// If music is playing, handle the pause request
+		if (Mix_PlayingMusic() == 1)
+		{
+			if (Mix_PausedMusic() == 1)
+			{
+				// If we receive a pause request and the music is already paused, resume it.
+				Mix_ResumeMusic();
+			}
+			else
+			{
+				// Otherwise, pause the music
+				Mix_PauseMusic();
+			}
+		}
+	}
+}
+
+//TODO 3.4 Add music to the type of playlist we recieve 
+bool ctAudio::AddMusicToList(const char* path, PlaylistType pl_type) {
+
+	Mix_Music* song = Mix_LoadMUS(path);
+
+	if (!song) {
+		LOG("Cannot add music %s to playlist. Mix_GetError(): %s", path, Mix_GetError());
+		return false;
+	}
+
+	//TODO 1.1 Add song to the playlist
+	//playlist.push_back(song);
+
+	switch (pl_type) {
+	case CASUAL:
+		playlist_casual.push_back(song);
+		break;
+	case BATTLE:
+		playlist_battle.push_back(song);
+		break;
+	default:
+
+		break;
+	}
+
+	song = NULL;
+	return true;
+}
+
+//TODO 3.5 Play a song from the playlist type we recieve.
+//Remember to set your enum variable of current playlist to the type you are going to start playing!
+bool ctAudio::PlayMusicPlaylist(PlaylistType pl_type) {
+
+	bool ret = true;
+
+	if (!active)
+		return false;
+
+	//TODO 1.3 play the first song on the playlist. 
+	// Dont forget about checking for errors with Mix_GetError()!!  Mix_PlayMusic returns 0 on success or -1 on errors.
+	//music = playlist.front();
+	//if (Mix_PlayMusic(music, 1) == -1) {
+	//	LOG("Cannot play music. Mix_GetError(): %s", Mix_GetError());
+	//	return false;
+	//}
+
+
+	switch (pl_type) {
+	case CASUAL:
+
+		music = playlist_casual.front();
+		currentPlaylist = CASUAL;
+		if (Mix_PlayMusic(music, 1) == -1) {
+			LOG("Cannot play music. Mix_GetError(): %s", Mix_GetError());
+			return false;
+		}
+
+		break;
+	case BATTLE:
+
+		music = playlist_battle.front();
+		currentPlaylist = BATTLE;
+		if (Mix_PlayMusic(music, 1) == -1) {
+			LOG("Cannot play music. Mix_GetError(): %s", Mix_GetError());
+			return false;
+		}
+		break;
+	default:
+		break;
+
+	}
+
+	return ret;
+}
 // Load WAV
 unsigned int ctAudio::LoadFx(const char* path)
 {
@@ -275,6 +391,7 @@ bool ctAudio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
 bool ctAudio::PlayFxOnChannel(uint id, uint channel, uint distance, int repeat)
 {
 
@@ -283,7 +400,10 @@ bool ctAudio::PlayFxOnChannel(uint id, uint channel, uint distance, int repeat)
 
 	bool ret = false;
 
-	
+	//TODO 5 Play fx on the received channel, angle and distance. The angle is the same as the channel number in our case!
+	//If a channel is playing, look on the next one. If you reach channel 360 go back to channel 0. Check the channel state with Mix_Playing
+	//Once you find a free channel, set the position(angle and distance) of it and play it!
+	//Useful functions: Mix_SetPosition and Mix_PlayChannel.
 
 	if (fx[id] != nullptr)
 	{
@@ -357,26 +477,6 @@ uint ctAudio::GetVolumeFromDistance(iPoint pos_player, iPoint pos_enemy) {
 }
 
 
-void ctAudio::PauseMusic()
-{
-	if (active)
-	{
-		// If music is playing, handle the pause request
-		if (Mix_PlayingMusic() == 1)
-		{
-			if (Mix_PausedMusic() == 1)
-			{
-				// If we receive a pause request and the music is already paused, resume it.
-				Mix_ResumeMusic();
-			}
-			else
-			{
-				// Otherwise, pause the music
-				Mix_PauseMusic();
-			}
-		}
-	}
-}
 
 //Set 2 channels for every 30 degrees
 void ctAudio::SetChannelsAngles() 
@@ -391,69 +491,11 @@ void ctAudio::SetChannelsAngles()
 
 }
 
-bool ctAudio::AddMusicToList(const char* path, PlaylistType pl_type) {
-	
-	Mix_Music* song = Mix_LoadMUS(path);
-
-	if (!song) {
-		LOG("Cannot add music %s to playlist. Mix_GetError(): %s", path, Mix_GetError());
-		return false;
-	}
-
-	switch (pl_type) {
-	case CASUAL:
-		playlist_casual.push_back(song);
-		break;
-	case BATTLE:
-		playlist_battle.push_back(song);
-		break;
-	default:
-
-		break;
-	}
-
-	song = NULL;
-	return true;
-}
 
 
 
-bool ctAudio::PlayMusicPlaylist(PlaylistType pl_type, float fade_time) {
-
-	bool ret = true;
-
-	if (!active)
-		return false;
 
 
-
-	switch (pl_type) {
-	case CASUAL:
-		
-		music = playlist_casual.front();
-		currentPlaylist = CASUAL;
-		if (Mix_PlayMusic(music, 1) == -1) {
-			LOG("Cannot play music. Mix_GetError(): %s", Mix_GetError());
-			return false;
-		}
-		
-		break;
-	case BATTLE:
-		
-		music = playlist_battle.front();
-		currentPlaylist = BATTLE;
-		if (Mix_PlayMusic(music, 1) == -1) {
-			LOG("Cannot play music. Mix_GetError(): %s", Mix_GetError());
-			return false;
-		}
-		break;
-	default:
-		break;
-
-	}
-	
-	return ret;
-}
 
 
 

@@ -6,7 +6,7 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #include <list>
 
-#define DEFAULT_MUSIC_FADE_TIME 5.5f
+#define DEFAULT_MUSIC_FADE_TIME 2.0f
 #define MAX_FX 200
 #define MAX_DISTANCE 500		 //Set it to the furthest you will be able to hear fx's
 #define VOLUME_AT_MAX_DIST 250   //Change as you like. Goes between 255 (volume 0) and 0 (maximum volume)
@@ -16,6 +16,7 @@
 struct _Mix_Music;
 struct Mix_Chunk;
 
+//TODO 3.1 Add enum to differentiate between CASUAL and BATTLE music
 enum PlaylistType
 {
 	CASUAL = 0,
@@ -52,10 +53,11 @@ public:
 	// Play a music file
 	bool PlayMusic(const char* path, int loops=-1, float fade_time = DEFAULT_MUSIC_FADE_TIME);
 	bool StopMusic();
-	void PauseMusic(); //*
+	void PauseMusic(); 
 
+	//TODO 3.3 Add a PlaylistType (or however you called your enum) variable to the functions
 	bool AddMusicToList(const char* path, PlaylistType pl_type);
-	bool PlayMusicPlaylist(PlaylistType pl_type, float fade_time = DEFAULT_MUSIC_FADE_TIME);
+	bool PlayMusicPlaylist(PlaylistType pl_type);
 
 
 
@@ -64,7 +66,7 @@ public:
 	unsigned int LoadFx(const char* path);
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
-	bool PlayFxOnChannel(uint fx, uint channel, uint distance = 1, int repeat = 0);//*
+	bool PlayFxOnChannel(uint fx, uint channel, uint distance = 1, int repeat = 0);
 	// UnLoad WAV
 	bool UnLoadFx(uint id);
 
@@ -80,11 +82,16 @@ private:
 	uint				last_fx = 1;
 	uint volume = 50;
 
+	//TODO 3.2 Make 2 lists, one for casual music and other for battle
 	std::list<Mix_Music*> playlist_casual;
 	std::list<Mix_Music*> playlist_battle;
+
+	//std::list<Mix_Music*> playlist;
 	
 public:
-	uint lastTime = 0u;
+	
+
+	//TODO 3.2 add a Playlist Type variable to know what playlist we are currently playing
 	enum PlaylistType currentPlaylist = NONE;
 	
 };

@@ -10,9 +10,6 @@ class Enemy : public Entity
 
 
 public:
-
-
-	//SDL_Rect enemy_rect = { 0,0,0,0 };
 	uint fx_1 = 0u;
 	uint fx_2 = 0u;
 private:

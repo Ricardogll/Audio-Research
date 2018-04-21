@@ -56,31 +56,15 @@ bool ctMap::Start()
 	//TODO 1.2 Add music to the playlist Check "audio/music/----.ogg" for music files. 
 	//Short1.ogg, Short2.ogg and Short3.ogg are short songs that will let you see quickly your results
 	
-	/*App->audio->AddMusicToList("audio/music/Short1.ogg");
-	App->audio->AddMusicToList("audio/music/Short2.ogg");
-	App->audio->AddMusicToList("audio/music/Short3.ogg");*/
 
 	//TODO 1.4 Call PlayMusicPlaylist to start a song
 	
-	//App->audio->PlayMusicPlaylist();
-
+	
 
 	//TODO 3.7 Adjust calls to have a playlist type
-	App->audio->AddMusicToList("audio/music/Short1.ogg", CASUAL);
-	App->audio->AddMusicToList("audio/music/Short2.ogg", CASUAL);
-	App->audio->AddMusicToList("audio/music/TES V Skyrim Soundtrack - Combat 2.ogg", BATTLE);
-	App->audio->AddMusicToList("audio/music/Short3.ogg", BATTLE);
-	
-	App->audio->PlayMusicPlaylist(CASUAL);
 
 
-	/*App->audio->AddMusicToList("audio/music/Short1.ogg", CASUAL);
-	App->audio->AddMusicToList("audio/music/TES V Skyrim Soundtrack - Awake.ogg", CASUAL);
 
-	App->audio->AddMusicToList("audio/music/TES V Skyrim Soundtrack - Combat 1.ogg", BATTLE); //BORRAR
-	App->audio->AddMusicToList("audio/music/TES V Skyrim Soundtrack - Combat 2.ogg", BATTLE);
-	
-	App->audio->PlayMusicPlaylist(CASUAL);*/
 
 
 	
@@ -110,7 +94,7 @@ bool ctMap::Update(float dt)
 
 	//TODO 3.8 Uncomment this!
 
-	if (player->position.x >= 600 && player->position.y >= 400 && App->audio->currentPlaylist==CASUAL)
+	/*if (player->position.x >= 600 && player->position.y >= 400 && App->audio->currentPlaylist==CASUAL)
 	{
 		LOG("Player in the battle zone");
 		App->audio->PlayMusicPlaylist(BATTLE);
@@ -122,7 +106,7 @@ bool ctMap::Update(float dt)
 		LOG("Player in the safe zone");
 		App->audio->PlayMusicPlaylist(CASUAL);
 
-	}
+	}*/
 
 
 

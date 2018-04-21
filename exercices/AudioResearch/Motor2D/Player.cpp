@@ -29,11 +29,7 @@ Player::~Player()
 // Called each loop iteration
 void Player::Update(float dt)
 {
-	//DRAW RECT
-	/*SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 255, 255);
-	SDL_RenderFillRect(App->render->renderer, &player_rect);
-	SDL_RenderPresent(App->render->renderer);*/
-
+	
 
 	//MOVE
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT && rect.y < 700) {

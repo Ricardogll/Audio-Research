@@ -47,11 +47,6 @@ private:
 
 private:
 
-	//uint fx_1 = 0u;
-	/*uint sound_distance = 1;
-	uint sound_angle = 0;
-	uint left_ear = 1;
-	uint right_ear = 255;*/
 	Player* player=nullptr;
 };
 
