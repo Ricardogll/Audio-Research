@@ -61,7 +61,7 @@ TIP:
 MixHookMusicFinished asks for a normal function, not a member function and will give you this error if you do this mistake.
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/4.png)
+![](images/4.png)
 
 *Argument of type "void (ctAudio::*)()" is incompatible with paramater of type "void(*)()"
 
@@ -79,13 +79,13 @@ In my case I'll use the second way.
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/5.png)
+![](images/5.png)
 
 And dont forget to link the function with MixHookMusicFinished
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/6.png)
+![](images/6.png)
 
 
 Now we will have a bool that will set true every time a song ends. Let's head to our game loop, in my case the Update function. Add a condition that will check if a song has just finished, and if its true cycle the music through the playlist and set our bool back to false so we don't end up coming back into this condition every game loop.
@@ -96,7 +96,7 @@ Since in previous TODO 1.3 we started the playlist by the front, we will have to
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/7.png)
+![](images/7.png)
 
 
 Now we should be able to hear the songs we added to the playlist cycling over and over. *(Use songs: Short1.ogg, Short2.ogg and Short3.ogg for 5 to 10 secongs long songs to check how you did).*
@@ -117,42 +117,42 @@ First we will add an enum that will help us in the following steps.
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/9.png)
+![](images/9.png)
 
 We will also need to have 2 lists of Mix_Music for our playlist.
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/10.png)
+![](images/10.png)
 
 In order to know what playlist we are playing currently lets add a PlaylistType variable. And don't forget to make it start in CASUAL or BATTLE in our constructor.
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/16.png)
+![](images/16.png)
 
 For the last step on the .h we will have to adjust the parameters we recieve on AddMusicToList and PlayMusicPlaylist.
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/11.png)
+![](images/11.png)
 
 Now lets head into AddMusicToList and change it so we can add a song to one or the other playlist depending on what PlaylistType we recieve.
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/12.png)
+![](images/12.png)
 
 Next, lets do the same with PlayMusicPlaylist and adjust it so we play a song based on the playlist type we recieve. Remember to set your enum variable to the type of music you are playing!
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/13.png)
+![](images/13.png)
 
 For the final adjustment we will go into the song_finished condition on our Update. Same as before, we will have to cycle ONLY throught the playlist that is currently playing.
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/14.png)
+![](images/14.png)
 
 Then head to the map and make our calls have a playlist type!
 
@@ -160,7 +160,7 @@ Now we have all the necessary. Go to the loop of the map and uncomment a simple 
 
 
 
-![](https://github.com/Ricardogll/Audio-Research/blob/master/docs/images/15.png)
+![](images/15.png)
 
 [Check result here!](https://youtu.be/6YmzysdU530)
 
