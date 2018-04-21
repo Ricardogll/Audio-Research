@@ -245,7 +245,7 @@ Allocate all channels you will need and set their angles. I will use SetChannels
 
 ## TODO 5
 
-Now that we have the channels ready to play audio in all directions its time to play an fx on the a channel according to its position and distance.
+Now that we have the channels ready to play audio in all directions its time to play a fx on a channel according to its position and distance.
 
 Remember the uint channel we recieve is the same as the angle from where the sound is coming. Check if the channel is in use, and if it is go onto the next one. *You can use [Mix_Playing](http://sdl.beuc.net/sdl.wiki/Mix_Playing) to check the state of the channel.* If we reach channel 360, start over with channel 0.
 
@@ -257,3 +257,14 @@ Useful functions:
 
 * [Mix_PlayChannel](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_28.html).
 
+# TODO 6
+
+Now we have to make our entities generate sound. I've loaded 2 different sounds for the 2 enemies (red squares). Uncomment the TODO 6 conditions and play fx_1 when we press 1 and fx_2 when we press 2. The rest of the condition is just to make one enemy do fx_1 sound while the other does fx_2 and be able to hear the difference of angles.
+
+*img 6
+
+Use the player position and the enemy position to get the correct angles and distances in order to call PlayFxOnChannel.
+
+*img 6.1
+
+[this is what it should look like.]() The first sound is related to the enemy on the left side of the screen, while the second is related to the enemy on the right.
