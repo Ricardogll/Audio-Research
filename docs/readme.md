@@ -25,21 +25,21 @@ For this part we'll mostly use and create functions under the MUSIC label.
 
 Now this is were the real thing starts. We want to have a playlist of music that can loop over and over through the songs we add. Since we need [Mix_Music](http://sdl.beuc.net/sdl.wiki/Mix_Music) to load and play music, lets have a list of Mix_Music* that will allow us to push and pop either back or front as we need. 
 
-### TODO
+### TODO 1
 
-Now go to the function AddMusicToList and add the music of the path recieved to your playlist. Once done, you can start to add songs to the playlist on the scene, in my case *ctMap*.
+Now go to the function **AddMusicToList** and add the music of the path recieved to your playlist. Once done, you can start to add songs to the playlist on the scene, in my case *ctMap*.
 
-*img de los pasos
+*img de los pasos1 y 3
 
-Now we'll need to play the music in our playlist. Take a look at PlayMusic function to have an idea on how we can start playing music. Don't forget to add LOG's using [Mix_GetError()](http://sdl.beuc.net/sdl.wiki/Mix_GetError) in case anything fails and we need to know what happened.
+Now we'll need to play the music in our playlist. Take a look at **PlayMusic** function to have an idea on how we can start playing music. Don't forget to add LOG's using [Mix_GetError()](http://sdl.beuc.net/sdl.wiki/Mix_GetError) in case anything fails and we need to know what happened.
 
-*img pasos
+*img pasos2
 
 Now we can start playing our playlist on our scene.
 
-*img map metiendo musica en la pl y playingplaylist
+*img map metiendo musica en la pl y playingplaylist 3
 
-### TODO
+### TODO 2
 
 But what happens is that the first song plays and that's all. Now we'll need to somehow know when a song is finished to go onto the next one right? This is where [Mix_HookMusicFinished](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_69.html) comes. This will allow us to set up a function to be called whenever a song ends.
 
@@ -48,7 +48,8 @@ So for now we only want a basic function SongFinished that will set a bool song_
 TIP:
 
 MixHookMusicFinished asks for a normal function, not a member function and will give you this error if you do this mistake.
-*img error de hacer funcion en el ctaudio
+*img error de hacer funcion en el ctaudio 4
+*Argument of type "void (ctAudio::*)()" is incompatible with paramater of type "void(*)()"
 
 There are 2 ways to avoid this:
 
