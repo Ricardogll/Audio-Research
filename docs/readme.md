@@ -227,5 +227,19 @@ Keep in mind we will calculate volume according to the player. If we wanted to h
 
 *If you are following along with your own project don't forget to add #include<math.h> for some calculations happening in this functions*
 
+## Let's begin!
+
+The way we are going to do this is the following. In order to make sound come from an angle we will use [Mix_SetPosition](https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_82.html). This is the main function we will use to set the angle and distance (hence volume). Since we might want to be playing multiple sounds at the same time, we are going to allocate some channels. I did 360, one for each angle, but if you need to optimize your project you could try lowering the number.
+
+Keep in mind we will need a good ammount of channels since, if we hear 5 sound coming from very close angles and don't have enough channels, we will have to either wait for one to end playing and right after play the next one or pass the sound to a close by channel that will play it in another angle. 
+
+This last one can very well work with our 360 channels because SDL_mixer doesn't really perfect sound to every angle, so if we move a sound a few degrees to the side, it will remain unchanged. 
+
+*SDL_mixer might play the same sound in angle 0 than angle 10, if you need more precision feel free to check out OpenAL*
+
+### TODO 4
+
+Allocate all channels you will need and set their angles. I will use SetChannelsAngles() the will set channel 0 with angle 0, channel 1 with angle 1, etc. Feel free to use a channel every 2 degrees or more if you want on your project.
+
 
 
