@@ -197,16 +197,35 @@ If you are still here, lets start talking about some different things we might f
 
 ## Spatial Audio Functions
 
+*img GetAngle
+
 * **GetAngle:** This function will return the angle between 2 points(x,y). Keep in mind this is how we will use angles from now on:
 
 *img angulos
 
 The center will be the player, so if we use GetAngle for an enemy that is at the left of the player, GetAngle will return 270.
 
+*img GetVolumeFromDist
 
 * **GetVolumeFromDistance:** Here, as the previos function, we will give 2 points and the function will calculate at what volume should we play a sound effect.
 
-<math.h> if you follow along
+This defines will help you adjust this function to your liking.
+
+* MAX_DISTANCE will set the maximum distance at which we will be able to hear sounds from an entity.
+
+* VOLUME_AT_MAX_DIST will set the volume that the sound effects from entities further than MAX_DISTANCE will have. The loudest would be 0, while the quietest would be 255.
+
+* NO_SOUND_DISTANCE if we don't want to hear sounds from entities past X distance this is what we have to change.
+
+So if we use the values of defines set on the previous picture, this is what it would look like:
+
+*img radar
+
+If an enemy is inside the green zone, we will hear him from maximum volume to VOLUME_AT_MAX_DIST when green meets orange(MAX_DISTANCE). On the whole orange space we will alway hear sounds at VOLUME_AT_MAX_DIST. If we go into the red zone(NO_SOUND_DISTANCE) or further, we won't hear anything coming from that entity.
+
+Keep in mind we will calculate volume according to the player. If we wanted to hear sounds according to the position of the camera, we should send the X and Y of the camera instead of the X and Y of the player in both functions.
+
+*If you are following along with your own project don't forget to add #include<math.h> for some calculations happening in this functions*
 
 
 
