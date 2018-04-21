@@ -275,6 +275,8 @@ Use the player position and the enemy position to get the correct angles and dis
 
 [This is what it should look like.](https://youtu.be/UBMnkvXZGj0) The first sound is related to the enemy on the left side of the screen, while the second is related to the enemy on the right.
 
+You can test it yourself downloading my release!
+
 
 ## What's next?
 
