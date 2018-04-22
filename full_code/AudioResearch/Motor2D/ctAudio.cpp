@@ -84,7 +84,7 @@ bool ctAudio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
-	//TODO 4 Allocate channels you will need and set their angles
+	//TODO 4 Allocate channels you will need and set their angles. Mix_AllocateChannels()
 	//If you want to follow along use 360 and set angles with SetChannelsAngles()
 	Mix_AllocateChannels(360);
 	SetChannelsAngles();
